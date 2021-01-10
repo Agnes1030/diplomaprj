@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.cms.dao.NavMenuMapper">
+    <update id="changeToTop" parameterType="java.util.List">
+  	update t_nav_menu set parent_id = 0 where id in ( select a.id from (
+  	(select id from t_nav_menu where parent_id in 
+  	<foreach collection="list" item="navmenuId" index="index" open="(" close=")" separator=",">
+  		#{navmenuId}
+  	</foreach>
+  	) ) a )
+  </update>
+</mapper>

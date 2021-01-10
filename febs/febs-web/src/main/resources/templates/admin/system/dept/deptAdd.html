@@ -1,0 +1,29 @@
+<div class="modal fade" id="dept-add" data-keyboard="false" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left" id="dept-add-modal-title">新增部门</h4>
+            </div>
+            <div class="modal-body">
+                <form id="dept-add-form" class="needs-validation" novalidate>
+                  <div class="form-group">
+                    <label for="deptName">部门名称:</label>
+                    <input type="text" name="deptName" class="form-control" required>
+                    <input type="hidden" name="oldDeptName"  class="form-control">
+                     <input type="hidden" name="deptId"  class="form-control">
+                  </div>
+                  <div class="form-group">
+                     <label  for="deptName">上级部门：</label>
+                     <div id="deptTree"></div>
+                      <input type="hidden" name="parentId">
+                  </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="dept-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">关闭</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

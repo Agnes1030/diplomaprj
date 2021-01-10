@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<!-- Vendor styles -->
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<!-- fontIconPicker core CSS -->
+<link rel="stylesheet" type="text/css" data-th-href="@{/js/fontIconPicker/css/jquery.fonticonpicker.min.css}" />
+
+<!-- required default theme -->
+<link rel="stylesheet" type="text/css" data-th-href="@{/js/fontIconPicker/themes/dark-grey-theme/jquery.fonticonpicker.darkgrey.min.css}" />
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid p-t-15">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="toolbar" class="toolbar-btn-action">
+            <button id="btn_delete" type="button" class="btn btn-danger" onclick="deleteArticleComments()" sec:authorize="hasAuthority('articleComment:delete')">
+              <span class="mdi mdi-window-close" aria-hidden="true"></span>删除
+            </button>
+          </div>
+          <table id="articleCommentTable"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script data-th-inline="javascript">
+	var ctx = [[@{/}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-multitabs/multitabs.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery.cookie.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/member/member.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/member/articleComment.js}"></script>
+</body>
+</html>

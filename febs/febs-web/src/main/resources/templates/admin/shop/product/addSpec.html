@@ -1,0 +1,38 @@
+<div class="modal fade" id="specModal" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="spec-add-modal-title">新增规格</h3>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">名称(例如：颜色)：</label>
+                        <input type="text" class="form-control" id="spec-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">值(多个用英文逗号分隔:红,黑,白,蓝)：</label>
+                        <input type="text" class="form-control" id="spec-value">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="addSpec">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-inline="javascript">
+    $("#addSpec").click(function () {
+        var specName = $("#spec-name").val();
+        var specValue = $("#spec-value").val();
+        if (specName.trim() != '' && specValue.trim() != "") {
+            var trHtml = '<tr class="spec"> <td class="specName">' + specName + '</td> <td class="specValue">' + specValue + '</td><td><a href="#!" class="btn btn-xs btn-danger delBtn">删除</a></td></tr>';
+            $("#specBody").append(trHtml);
+            $MB.closeAndRestModal("specModal");
+        }
+
+    });
+</script>

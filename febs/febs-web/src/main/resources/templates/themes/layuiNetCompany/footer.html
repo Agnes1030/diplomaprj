@@ -1,0 +1,20 @@
+    <div class="layui-container">
+      <p class="footer-web">
+        <a th:href="${link.urlAddress}" th:each="link : ${friendLinks}" th:text="${link.name}" th:target="${link.target}">合作伙伴</a>
+      </p>
+      <div class="layui-row footer-contact">
+        <div class="layui-col-sm2 layui-col-lg1"><img data-th-src="@{/layuiNetCompany/res/static/img/erweima.jpg}"></div>
+        <div class="layui-col-sm10 layui-col-lg11">
+          <div class="layui-row">
+            <div class="layui-col-sm6 layui-col-md8 layui-col-lg9">
+              <p class="contact-top"><i class="layui-icon layui-icon-cellphone"></i>&nbsp;<i th:text="${site_phone}"></i></p>
+              <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;<i th:text="${site_email}"></i></span></p>
+            </div>
+            <div class="layui-col-sm6 layui-col-md4 layui-col-lg3">
+              <p class="contact-top"><span class="right" th:text="${site_copyright}"></span></p>
+              <p class="contact-bottom"><span class="right" th:text="${site_icp}"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

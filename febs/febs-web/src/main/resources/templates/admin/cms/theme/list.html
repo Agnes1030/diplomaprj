@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>农产品后台管理系统</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="后台管理系统">
+<meta name="description" content="后台管理系统，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!-- jstree -->
+<link  data-th-href="@{/js/jsTree/themes/default/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+</head>
+<body>
+      <div class="container-fluid p-t-15">
+        <div class="row">
+          <div class="col-sm-4" th:each="template:${templates}">
+            <div class="card">
+              <div class="card-header">
+                 <h5 th:text="${template.title}">标题</h5>
+              </div>
+              <div class="card-body">
+                <img th:src="'/'+${template.id}+'/'+ ${template.screenshot}"/>
+              </div>
+              <footer class="card-footer">
+                <div class="example-left m-t-10 pull-left">
+                 作者: <a href="http://www.baidu.com" target="_blank" th:text="${template.author}">wtsoftware</a>
+                </div>              
+                <div class="example-right pull-right">
+                  <a class="btn btn-primary" th:href="'/admin/theme/update?themeId=' + ${template.id}" th:classappend="${theme eq template.id}? 'disabled'">启用</a>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+        <!-- .row --> 
+      </div>
+<script data-th-inline="javascript">
+	var ctx = [[@{/}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery-confirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.iframe-transport.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-process.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-ui.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script type="text/javascript" data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+</body>
+</html>

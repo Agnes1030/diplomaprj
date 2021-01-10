@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>后台管理系统</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="后台管理系统">
+    <meta name="description" content="后台管理系统，基于Bootstrap v4.4.1。">
+    <meta name="author" content="yinqi">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+    <link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+    <!--对话框-->
+    <link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+    <!-- jstree -->
+    <link data-th-href="@{/js/jsTree/themes/default/style.min.css}" rel="stylesheet">
+    <link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}" rel="stylesheet">
+    <link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/custom.css}" rel="stylesheet">
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>订单信息</h4>
+                    <th:block th:switch="${order.tradeStatus}">
+                        <th:block th:case="1"><em class="text-info">(交易中)</em></th:block>
+                        <th:block th:case="2"><em class="text-success">(交易完成)</em></th:block>
+                        <th:block th:case="3"><em class="text-danger">(已取消)</em></th:block>
+                        <th:block th:case="4"><em class="text-danger">(申请退款中)</em></th:block>
+                        <th:block th:case="5"><em class="text-danger">(拒绝退款)</em></th:block>
+                        <th:block th:case="6"><em class="text-danger">(退款中)</em></th:block>
+                        <th:block th:case="7"><em class="text-success">(退款完成)</em></th:block>
+                        <th:block th:case="9"><em class="text-muted">(交易结束)</em></th:block>
+                    </th:block>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="orderId" th:value="${order.id}"/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>订单预览</h5>
+                            <p class="text-left mtop-10">订单总额:
+                                <th:block th:text="${order.orderTotalAmount}"></th:block>
+                                元
+                            </p>
+                            <p class="text-left">支付金额:
+                                <th:block th:text="${order.orderRealAmount}"></th:block>
+                                元
+                            </p>
+                            <p class="text-left">支付状态:
+                                <th:block th:switch="${order.payStatus}">
+                                    <th:block th:case="1">未付款</th:block>
+                                    <th:block th:case="2">线下付款完成</th:block>
+                                    <th:block th:case="3">工具支付完成</th:block>
+                                    <th:block th:case="4">已经付款（线上支付)</th:block>
+                                </th:block>
+                            </p>
+                            <p class="text-left">发票状态:
+                                <th:block th:switch="${order.invoiceStatus}">
+                                    <th:block th:case="1">未申请发票</th:block>
+                                    <th:block th:case="2">发票申请中</th:block>
+                                    <th:block th:case="3">发票开具中</th:block>
+                                    <th:block th:case="8">无需开具发票</th:block>
+                                    <th:block th:case="9">发票已经开具</th:block>
+                                </th:block>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>收货信息</h5>
+                            <p class="text-left mtop-10">收件人:
+                                <th:block th:text="${order.deliveryAddrUsername}"></th:block>
+                            </p>
+                            <p class="text-left">电话:
+                                <th:block th:text="${order.deliveryAddrMobile}"></th:block>
+                            </p>
+                            <p class="text-left">邮编:
+                                <th:block th:text="${order.deliveryAddrZipcode}"></th:block>
+                            </p>
+                            <p class="text-left">地址:
+                                <th:block
+                                        th:text="${order.deliveryAddrProvince}+${order.deliveryAddrCity}+${order.deliveryAddrDetail}"></th:block>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>留言</h5>
+                            <p class="text-left mtop-10" th:text="${order.buyerMsg}" id="orderRemarkTxt">留言</p>
+                        </div>
+                    </div>
+                    <div class="row mtop-20">
+                        <div class="col-md-4">
+                            <h5>发票信息</h5>
+                            <th:block th:if="${not #strings.isEmpty(order.invoiceId)}">
+                                <p class="text-left mtop-10">类型:
+                                    <th:block th:text="${invoice.type}">普通发票</th:block>
+                                </p>
+                                <p class="text-left">抬头:
+                                    <th:block th:text="${invoice.title}">自领领主发展有限公司</th:block>
+                                </p>
+                                <p class="text-left">内容:
+                                    <th:block th:text="${invoice.content}">通讯器材</th:block>
+                                </p>
+                                <p class="text-left">纳税人识别号:
+                                    <th:block th:text="${invoice.identity}">纳税人识别号</th:block>
+                                </p>
+                            </th:block>
+                            <th:block th:if="${#strings.isEmpty(order.invoiceId)}">
+                                <p class="text-left mtop-10">类型:无</p>
+                            </th:block>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>优惠券</h5>
+                            <th:block th:if="${not #strings.isEmpty(coupon)}">
+                                <p class="text-left mtop-10">类型:抵扣券</p>
+                                <p class="text-left">优惠券:
+                                    <th:block th:text="${coupon}">XEF899</th:block>
+                                </p>
+                                <p class="text-left">优惠金额:
+                                    <th:block th:text="${order.couponAmount}">99</th:block>
+                                </p>
+                            </th:block>
+                            <th:block th:if="${#strings.isEmpty(coupon)}">
+                                <p class="text-left mtop-10">无</p>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="row mtop-20">
+                        <div class="pull-right">
+                            <th:block th:if="(${order.payStatus eq 1} and ${order.tradeStatus eq 1})">
+                                <div class="btn-group dropup">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-square-inc-cash"></i> 去付款<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#!" id="orderZfbPay">支付宝</a></li>
+                                        <li><a href="#!" id="orderWxPay">微信</a></li>
+                                    </ul>
+                                </div>
+                            </th:block>
+                            <th:block th:if="(${order.tradeStatus eq 2})">
+                                <a class="btn btn-success m-r-5" href="#!" id="sureGetProducts"><i
+                                        class="mdi mdi-square-inc-cash"></i> 确认收货</a>
+                            </th:block>
+                            <th:block th:if="(${order.payStatus eq 1} and ${order.tradeStatus eq 1})">
+                                <a class="btn btn-danger m-r-5" href="#!" id="cancelOrder"><i
+                                        class="mdi mdi-square-inc-cash"></i> 取消订单</a>
+                            </th:block>
+                            <th:block th:if="${order.tradeStatus eq 2}">
+                                <a class="btn btn-danger m-r-5" href="#!" id="applyRefundBtn"><i
+                                        class="mdi mdi-square-inc-cash"></i>申请退款</a>
+                            </th:block>
+                            <th:block th:if="${order.tradeStatus eq 9}">
+                                <a class="btn btn-danger m-r-5" href="#!" id="applyAfterServiceBtn"><i
+                                        class="mdi mdi-square-inc-cash"></i>申请售后</a>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h4>商品信息</h4></div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>商品</th>
+                                <th>规格</th>
+                                <th>数量</th>
+                                <th>单价</th>
+                                <th>总价</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${items}">
+                                <td th:text="${item.productTitle}"></td>
+                                <td th:text="${item.productSpec}"></td>
+                                <td th:text="${item.productCount}"></td>
+                                <td th:text="${item.productPrice}"></td>
+                                <td th:text="${item.totalAmount}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h4>物流信息</h4></div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="deliverTable">
+                            <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>运输途径</th>
+                                <th>信息</th>
+                                <th>状态</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${not #lists.isEmpty(orderDeliverys)}">
+                                <tr th:each="item : ${orderDeliverys}">
+                                    <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}">2020.04.28
+                                        21:21
+                                    </td>
+                                    <td th:text="${item.company}">快递或物流公司名称</td>
+                                    <td>运输单号:
+                                        <th:block th:text="${item.deliveryNumber}">343FLTSFDSFDS8909</th:block>
+                                    </td>
+                                    <td>
+                                        <th:block th:switch="${item.deliveryStatus}">
+                                            <th:block th:case="1">已发货(待运输)</th:block>
+                                            <th:block th:case="2">运输中</th:block>
+                                            <th:block th:case="3">配送中</th:block>
+                                            <th:block th:case="4">已签收</th:block>
+                                        </th:block>
+                                    </td>
+                                    <td th:text="${item.remarks}">
+                                        如果订单涉及多个商品分开运输，可以在备注中标明此订单商品
+                                    </td>
+                                </tr>
+                            </th:block>
+                            <th:block th:if="${#lists.isEmpty(orderDeliverys)}">
+                                <tr>
+                                    <td colspan="6">未发货</td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-th-inline="javascript">
+    var ctx = [[@{/}]];
+    var orderId = [[${order.id}]];
+
+</script>
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery-confirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script type="text/javascript" data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-multitabs/multitabs.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery.cookie.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/member/orderView.js}"></script>
+<script type="text/javascript">
+    function userPay(url, orderId) {
+        $.get(url, {orderId: orderId}, function (response, status, xhr) {
+            if (response.code == 0) {
+                window.location.reload();
+            }
+        });
+    }
+
+    $("#orderZfbPay").click(function () {
+        var url = ctx + "member/orderZfbPay";
+        userPay(url, orderId);
+    })
+    $("#orderWxPay").click(function () {
+        var url = ctx + "member/orderWxPay";
+        userPay(url, orderId);
+    })
+</script>
+</body>
+</html>

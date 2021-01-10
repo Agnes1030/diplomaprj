@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.cms.dao.ArticleMapper">
+  <resultMap id="articleMap" type="com.febs.cms.domain.Article">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="DECIMAL" property="id" />
+    <result column="category_ids" jdbcType="VARCHAR" property="categoryIds" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="slug" jdbcType="VARCHAR" property="slug" />
+    <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail" />
+    <result column="template" jdbcType="VARCHAR" property="template" />
+    <result column="meta_description" jdbcType="VARCHAR" property="description" /> 
+    <result column="meta_keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="content" jdbcType="VARCHAR" property="content" />               
+    <result column="seq_num" jdbcType="DECIMAL" property="seqNum" />
+    <result column="view_count" jdbcType="DECIMAL" property="viewCount" />
+    <result column="article_status" jdbcType="CHAR" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+    <select id="queryArticles" resultMap="articleMap">
+        SELECT art.* FROM t_article art left join t_article_category_mapping tp on art.id = tp.article_id
+  		where 1=1
+  		<if test="ids != null and ids.size>0">
+  		  and tp.category_id in(
+		  <foreach item="item" index="index" collection="ids" separator=",">
+		    #{item}
+		  </foreach>
+		  )
+		 </if>
+  		<if test="article.title != null and article.title != ''">
+        	AND art.title like "%"#{article.title}"%"
+	    </if>
+	    <if test="article.content != null and article.content != ''">
+	        art.content like "%"#{article.content}"%"
+	    </if>
+  		order by art.seq_num asc
+    </select>
+    <update id="updateViewCount" parameterType="Long">
+     update t_article t set view_count=view_count+1  where id=#{id}
+  </update>
+</mapper>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title th:text="${site_name}">Essence - Fashion Ecommerce Template</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/essence/img/core-img/favicon.ico}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" data-th-href="@{/essence/css/core-style.css}">
+    <link rel="stylesheet" data-th-href="@{/essence/style.css}">
+</head>
+
+<body>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+            <!-- Classy Menu -->
+            <nav class="classy-navbar" id="essenceNav">
+                <!-- Logo -->
+                <a class="nav-brand" href="index.html"><img th:src="@{/essence/img/core-img/logo.png}" alt=""></a>
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+                <!-- Menu -->
+                <div class="classy-menu">
+                    <!-- close btn -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul> 
+                            <li th:each="nav : ${navs.children}"><a th:text="${nav.text}" th:href="${nav.url}">Pages</a>
+                               <th:block th:if="${not #lists.isEmpty(nav.children)}">
+                                <ul class="dropdown">
+                                    <li th:each="nav1 : ${nav.children}"><a th:text="${nav1.text}" th:href="${nav1.url}">Home</a></li>
+                                </ul>
+                                </th:block>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Nav End -->
+                </div>
+            </nav>
+
+            <!-- Header Meta Data -->
+            <th:block data-th-include="themes/essence/hmeta"></th:block>
+            <!-- Header Meta Data end -->
+
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Right Side Cart Area ##### -->
+    <th:block data-th-include="themes/essence/cart"></th:block>
+    <!-- ##### Right Side Cart End ##### -->
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area breadcumb-style-two bg-img" style="background-image: url(/essence/img/bg-img/breadcumb2.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2 th:text="${category.name}">Fashion Blog</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Blog Wrapper Area Start ##### -->
+    <div class="blog-wrapper section-padding-80">
+        <div class="container">
+                <cms:articleList categoryId="${category.id}" pageSize="6">
+                <div class="row">
+                 <!-- Single Blog Area -->
+                <div class="col-12 col-lg-6" th:each="article,iterStat : ${pageInfo.list}">
+                    <div class="single-blog-area mb-50">
+                        <img th:src="${article.thumbnail}" alt="">
+                        <!-- Post Title -->
+                        <div class="post-title">
+                            <a th:href="@{${article.linkUrl}}" th:text="${article.title}">标题</a>
+                        </div>
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <!-- Post Title -->
+                            <div class="hover-post-title">
+                                <a th:href="@{${article.linkUrl}}" th:text="${article.title}">划过标题</a>
+                            </div>
+                            <p th:text="${article.summary}">摘要</p>
+                            <a th:href="@{${article.linkUrl}}">阅读<i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                    <!-- Pagination -->
+                <div class="row">
+                  	     <!-- Pagination -->
+	                    <nav aria-label="navigation">
+	                        <ul class="pagination mt-50 mb-70">
+	                            <li class="page-item"><a class="page-link" th:if="${not pageInfo.isFirstPage}" th:href="@{${'/category/'+category.slug}(pageNum=${pageInfo.pageNum-1},pageSize=${pageInfo.pageSize})}"><i class="fa fa-angle-left"></i></a></li>
+	                            <th:block th:each="pageNo : ${pageInfo.navigatepageNums}">
+	                               <li class="page-item" th:if="${not (pageInfo.pageNum eq pageNo)}"><a class="page-link"  th:href="@{${'/category/'+category.slug}(pageNum=${pageNo},pageSize=${pageInfo.pageSize})}" th:text="${pageNo}">1</a></li>
+	                               <li class="page-item" th:if="${pageInfo.pageNum eq pageNo}"><a class="page-link" href="#" th:text="${pageNo}">2</a></li>
+	                            </th:block>
+	                            <li class="page-item"><a class="page-link" th:if="${not pageInfo.isLastPage}" th:href="@{${'/productCategory/'+category.slug}(pageNum=${pageInfo.pageNum+1},pageSize=${pageInfo.pageSize})}"><i class="fa fa-angle-right"></i></a></li>
+	                        </ul>
+	                    </nav>
+                </div>                
+               </cms:articleList>
+        </div>
+        
+    </div>
+    <!-- ##### Blog Wrapper Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <th:block data-th-include="themes/essence/footer"></th:block>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script data-th-src="@{/essence/js/jquery/jquery-2.2.4.min.js}"></script>
+    <script data-th-src="@{/essence/js/jquery.tmpl.min.js}"></script>      
+    <!-- Popper js -->
+    <script data-th-src="@{/essence/js/popper.min.js}"></script>
+    <!-- Bootstrap js -->
+    <script data-th-src="@{/essence/js/bootstrap.min.js}"></script>
+    <!-- Plugins js -->
+    <script data-th-src="@{/essence/js/plugins.js}"></script>
+    <!-- Classy Nav js -->
+    <script data-th-src="@{/essence/js/classy-nav.min.js}"></script>
+    <!-- Active js -->
+    <script data-th-src="@{/essence/js/active.js}"></script>
+    <script data-th-src="@{/essence/js/product.js}"></script>
+    <script data-th-src="@{/essence/js/sku.js}"></script> 
+    <script data-th-inline="javascript">
+	  var ctx = [[@{/}]];
+	  // 初始化购物车
+	  $Product.refreshCart();
+    </script>
+</body>
+
+</html>

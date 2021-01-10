@@ -1,0 +1,48 @@
+                <div class="modal fade" id="selProductModal" data-keyboard="false" data-backdrop="static" tabindex="-1">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+		            <div class="modal-header">
+		                <h4 class="modal-title pull-left" id="product-select-modal-title">选择商品</h4>
+		            </div>
+                      <div class="modal-body">
+				        <div class="row">
+				          <div id="filterTree" class="col-lg-2"></div>
+				          <div class="col-lg-10">
+				            <div class="card">
+				              <div class="card-toolbar clearfix">
+				                <form class="pull-right product-table-form form-inline" method="get" action="#!" role="form">
+				                  <div class="form-group">
+				                                         <select class="form-control" name="status">
+				                                            <option value="" selected>全部</option>
+				                                            <option value="1">有效</option>
+				                                            <option value="0">锁定</option>
+				                                        </select>
+				                  </div>
+				                  <div class="form-group">
+				                    <input class="form-control" type="text"  aria-label="商品标题" name="title" placeholder="商品标题">
+				                  </div>
+				                  <div class="form-group">
+				                    <button type="button" class="btn btn-default" onclick="searchSel()">搜索</button>
+				                  </div>
+				                </form>                
+				              </div>
+				              <div class="card-body">
+				                <div id="select_toolbar" class="toolbar-btn-action">
+				                  <a class="btn btn-success m-r-5" href="#!" onclick="addToTopic()" sec:authorize="hasAuthority('product:update')"><i class="mdi mdi-check"></i>加入专题</a>
+				                </div>				              
+				                <div class="table-responsive">
+				                  <table id="selProductTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+				                </div>
+				              </div>
+				            </div>
+				          </div>
+				          
+				        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button class="btn-hide d-none" type="button"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>

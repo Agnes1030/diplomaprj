@@ -1,0 +1,55 @@
+    <div class="cart-bg-overlay"></div>
+
+    <div class="right-side-cart-area">
+
+        <!-- Cart Button -->
+        <div class="cart-button">
+            <a href="#" id="rightSideCart"><img src="/essence/img/core-img/bag.svg" alt=""> <span class="cartListSize">0</span></a>
+        </div>
+
+        <div class="cart-content d-flex">
+             
+            <!-- Cart List Area -->
+            <div class="cart-list" id="cartList">
+
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="cart-amount-summary">
+
+                <h2>订单总额</h2>
+                <ul class="summary-table">
+                    <li><span>运费:</span> <span id="deliveryFee">0</span></li>
+                    <li><span>商品总价:</span> <span id="productMoney">0</span></li>
+                    <li><span>总金额:</span> <span id="totalMoney">0</span></li>
+                 <!--    <li><span>折扣:</span> <span>-15%</span></li>
+                    <li><span>应付金额:</span> <span>$232.00</span></li> -->
+                </ul>
+                <div class="checkout-btn mt-100">
+                  <th:block sec:authorize="isAuthenticated()">
+                    <a href="#!" class="btn essence-btn" id="orderSureBtn">下单</a>
+                  </th:block>  
+                  <th:block sec:authorize="isAnonymous()">
+                     <a href="/member/login" class="btn essence-btn">下单(游客)</a>
+                  </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- single product item -->
+    <script id="cartListTemplate" type="text/x-jquery-tmpl">
+	    <div class="single-cart-item">
+	        <a href="#" class="product-image">
+	            <img src="${imgUrl}" class="cart-thumb" alt="">
+	            <!-- Cart Item Desc -->
+	            <div class="cart-item-desc">
+                  <input type="hidden" name="specificationIds" value="${specificationIds}"/>
+	              <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+	                <h6>${productName}</h6>
+                    {{html formatSpec(specification)}}
+                    <span class="spec">数量:${quantity}</span>
+	                <span class="price">单价:${price}</span>
+	            </div>
+	        </a>
+	    </div>    
+    </script>

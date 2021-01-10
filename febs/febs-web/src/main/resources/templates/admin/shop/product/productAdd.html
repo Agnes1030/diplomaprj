@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>表格插件 - 后台管理系统</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords"
+          content="后台管理系统">
+    <meta name="description"
+          content="后台管理系统，基于Bootstrap v4.4.1。">
+    <meta name="author" content="yinqi">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/materialdesignicons.min.css}"
+          rel="stylesheet">
+    <link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}"
+          rel="stylesheet">
+    <!--对话框-->
+    <link rel="stylesheet"
+          data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+    <!-- jstree -->
+    <link data-th-href="@{/js/jsTree/themes/default/style.min.css}"
+          rel="stylesheet">
+    <link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}"
+          rel="stylesheet">
+    <link data-th-href="@{/js/viewerjs/dist/viewer.css}" rel="stylesheet">
+    <link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/custom.css}" rel="stylesheet">
+    <script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+    <script data-th-src="@{/js/jsTree/jstree.min.js}"></script>
+    <script data-th-src="@{/js/multiple-select/multiple-select.js}"></script>
+    <script data-th-src="@{/js/ckeditor/ckeditor.js}"></script>
+    <script data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+    <script data-th-src="@{/js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js}"></script>
+    <script data-th-src="@{/js/jQuery-File-Upload/js/jquery.iframe-transport.js}"></script>
+    <script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload.js}"></script>
+    <script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-process.js}"></script>
+    <script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-ui.js}"></script>
+    <script data-th-src="@{/js/lightyear.js}"></script>
+    <script data-th-src="@{/js/common.js}"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card" id="product-add">
+                <div class="card-body">
+                    <form id="product-add-form" class="row needs-validation" novalidate>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="title">标题</label>
+                                <input type="text" class="form-control" id="title" name="title" value=""
+                                       placeholder="请输入标题" required/>
+                                <input type="hidden" name="id" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>图片集</label>
+                                <div class="form-controls">
+                                    <ul class="list-inline row lyear-uploads-pic mb-0" id="productsLi">
+                                        <!--                     <li class="col-xs-4 col-sm-3 col-md-3 imgObj">
+                                                                  <figure>
+                                                                    <input type="hidden" value="/images/gallery/15.jpg" name="productImgs"/>
+                                                                    <img   data-th-src="@{/images/gallery/15.jpg}" >
+                                                                    <figcaption>
+                                                                      <a class="btn btn-round btn-square btn-primary" href="#!"><i class="mdi mdi-eye"></i></a>
+                                                                      <a class="btn btn-round btn-square btn-danger" href="#!"><i class="mdi mdi-delete"></i></a>
+                                                                    </figcaption>
+                                                                  </figure>
+                                                                </li> -->
+                                        <li class="col-xs-4 col-sm-3 col-md-3 upElement" id="upElement">
+                                            <a class="pic-add" id="add-pic-btn" href="#!" title="点击上传"></a>
+                                            <input class="upload upFile" id="productFile" type="file"
+                                                   name="productFile">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for=summary>摘要</label>
+                                <textarea class="form-control" id="summary" name="summary" rows="4" placeholder="摘要"
+                                          required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="productEditor" name="content" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="usp">产品卖点</label>
+                                <textarea class="form-control" id="usp" name="usp" rows="4" placeholder="产品卖点"
+                                          required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="remarks">备注</label>
+                                <textarea class="form-control" id="remarks" name="remarks" rows="4" placeholder="备注"
+                                          required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="keywords">seo关键词</label>
+                                <input type="text" class="form-control" id="keywords" name="keywords" value=""
+                                       placeholder="关键词" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">seo描述</label>
+                                <textarea class="form-control" id="description" name="description" rows="4"
+                                          placeholder="描述" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="template">模板</label>
+                                <input type="text" class="form-control" id="template" name="template" value=""
+                                       placeholder="模板" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="addSpecBtn">规格</label>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!" class="addSpec"
+                                                                                             data-toggle="modal"
+                                                                                             data-target="#specModal"
+                                                                                             data-whatever="@mdo"
+                                                                                             id="addSpecBtn">增加</a>
+                                <input type="hidden" id="specStr" name="specStr"/>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>名称</th>
+                                            <th>值</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="specBody">
+                                        <tr class="spec" th:each="spec:${specList}">
+                                            <td class="specName" th:text="${spec.specification}">规格</td>
+                                            <td class="specValue" th:text="${spec.value}">1.2米*1.5,1.8米*1.8</td>
+                                            <td><a href="#!" class="btn btn-xs btn-danger delBtn">删除</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a style="display:none;" data-toggle="modal" data-target="#skuModal" id="openSku"></a>
+                                <label for="addSkuBtn">库存</label>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!" class="addSku"
+                                                                                            id="addSkuBtn">增加</a>
+                                <input type="hidden" id="skuStr" name="skuStr"/>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>规格</th>
+                                            <th>价格</th>
+                                            <th>原始价格</th>
+                                            <th>图片</th>
+                                            <th>库存</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="skuBody">
+                                        <tr class="sku" th:each="sku:${skuList}">
+                                            <td class="sku_spec" th:text="${sku.specification}">1.2米*1.5,红,XL</td>
+                                            <td class="sku_price" th:text="${sku.price}">2135</td>
+                                            <td class="sku_oripice" th:text="${sku.originPrice}">2535</td>
+                                            <td class="sku_img"><input type="hidden" class="skuImgUrl"
+                                                                       th:value="${sku.imgUrl}"/><img
+                                                    th:src="${sku.imgUrl}" class="skuImg"/></td>
+                                            <td class="sku_stock" th:text="${sku.stock}">33</td>
+                                            <td><a href="#!" class="btn btn-xs btn-danger delBtn">删除</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="sort">slug</label>
+                                <input type="text" class="form-control" id="slug" name="slug" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="keywords">分类</label>
+                                <input type="hidden" name="categoryIds" id="categoryIds"/>
+                                <div id="categoryTree"></div>
+                            </div>
+                            <div class="form-group  control-group"><label>缩略图：</label>
+                                <div class="controls upload-bg">
+                                    <input class="upload" id="file" type="file" name="file">
+                                    <img src="" style="display:none;width:100%;height:100%" id="target"
+                                         alt="[Jcrop Example]"/>
+                                    <input type="hidden" value="" id="url" name="thumbnail" class="filevalue">
+                                </div>
+                                <p class="reupload">重新上传
+                                    <input class="imgEditor" id="uploadNext" type="file" name="file" value=""/>
+                                    　　</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="template">价格</label>
+                                <input type="number" class="form-control" id="price" name="price" value=""
+                                       placeholder="价格" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="template">原始价格</label>
+                                <input type="number" class="form-control" id="originPrice" name="originPrice" value=""
+                                       placeholder="原始价格" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="sort">排序</label>
+                                <input type="text" class="form-control" id="seqNum" name="seqNum" placeholder="0"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="commentStatus">是否允许评论</label>
+                                <div class="clearfix">
+                                    <label class="lyear-radio radio-inline radio-primary">
+                                        <input type="radio" name="commentStatus" value="0"><span>否</span>
+                                    </label>
+                                    <label class="lyear-radio radio-inline radio-primary">
+                                        <input type="radio" name="commentStatus" value="1" checked><span>是</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">状态</label>
+                                <div class="clearfix">
+                                    <label class="lyear-radio radio-inline radio-primary">
+                                        <input type="radio" name="status" value="0"><span>锁定</span>
+                                    </label>
+                                    <label class="lyear-radio radio-inline radio-primary">
+                                        <input type="radio" name="status" value="1" checked><span>有效</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card-toolbar clearfix">
+                        <div class="toolbar-btn-action pull-right">
+                            <button type="button" class="btn btn-primary btn-save" id="product-add-button" name="save">
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-default btn-close" onclick="closeTab()">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<th:block data-th-include="admin/shop/product/addSpec"></th:block>
+<th:block data-th-include="admin/shop/product/addSku"></th:block>
+<script data-th-inline="javascript">
+    var ctx = [[@{/}]];
+        // 选中自己的父菜单
+        window._pathName = "/admin/product";
+    var operation = [[${action}]];
+    var productId = [[${productId}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<!--时间选择插件-->
+<script data-th-src="@{/js/bootstrap-datetimepicker/moment.min.js}"></script>
+<script data-th-src="@{/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js}"></script>
+<script data-th-src="@{/js/bootstrap-datetimepicker/locale/zh-cn.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/admin/shop/product/product.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/viewerjs/dist/viewer.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery-viewer/dist/jquery-viewer.min.js}"></script>
+<script data-th-src="@{/js/app/admin/shop/product/productAdd.js}"></script>
+<script data-th-src="@{/js/app/admin/shop/product/productEdit.js}"></script>
+</body>
+</html>

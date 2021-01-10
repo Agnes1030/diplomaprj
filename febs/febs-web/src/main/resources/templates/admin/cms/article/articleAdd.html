@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>表格插件 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords"
+	content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description"
+	content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}"
+	rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}"
+	rel="stylesheet">
+<!--对话框-->
+<link rel="stylesheet"
+	data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!-- jstree -->
+<link data-th-href="@{/js/jsTree/themes/default/style.min.css}"
+	rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}"
+	rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/custom.css}" rel="stylesheet">
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script data-th-src="@{/js/jsTree/jstree.min.js}"></script>
+<script data-th-src="@{/js/multiple-select/multiple-select.js}"></script>
+<script data-th-src="@{/js/ckeditor/ckeditor.js}"></script>
+<script data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.iframe-transport.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-process.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-ui.js}"></script>
+<script data-th-src="@{/js/lightyear.js}"></script>
+<script data-th-src="@{/js/common.js}"></script>
+</head>
+<body>
+	<div class="container-fluid p-t-15">
+				<div class="card">
+					<div class="card-body" id="article-add">
+						<form id="article-add-form" class="form-row needs-validation" novalidate >
+							<div class="col-md-9">
+								<div class="form-group">
+									<label for="title">标题</label> <input type="text"
+										class="form-control" id="title" name="title" value=""
+										placeholder="请输入标题" required/> <input type="hidden" name="id"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="keywords">关键词</label> <input type="text"
+										class="form-control" id="keywords" name="keywords" value=""
+										placeholder="关键词" required/>
+								</div>
+								<div class="form-group">
+									<label for="description">描述</label>
+									<textarea class="form-control" id="description"
+										name="description" rows="5" placeholder="描述" required></textarea>
+								</div>
+								<div class="form-group">
+									<label for="summary">摘要</label>
+									<textarea class="form-control" id="summary" name="summary"
+										rows="5" placeholder="描述" required></textarea>
+								</div>
+								<div class="form-group">
+									<textarea class="form-control" id="articleEditor"
+										name="content" required></textarea>
+								</div>
+								<div class="form-group">
+									<label for="template">模板</label> <input type="text"
+										class="form-control" id="template" name="template" value=""
+										placeholder="模板" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="sort">slug</label> <input type="text"
+										class="form-control" id="slug" name="slug" required/>
+								</div>
+								<div class="form-group">
+									<label for="categoryIds">分类</label>
+									<div id="categoryTree"></div>
+									<input type="hidden" name="categoryIds">
+								</div>
+								<div class="form-group  control-group">
+									<label>缩略图：</label>
+									<div class="controls upload-bg">
+										<input class="upload" id="file" type="file" name="file">
+										<img src="" style="display: none; width: 100%; height: 100%"
+											id="target" alt="[Jcrop Example]" /> <input type="hidden"
+											value="" id="url" name="thumbnail" class="filevalue">
+									</div>
+									<p class="reupload">
+										重新上传 <input class="imgEditor" id="uploadNext" type="file"
+											name="file" value="" />
+									</p>
+								</div>
+								<div class="form-group">
+									<label for="tags">标签</label> <input class="form-control"
+										type="text" id="tags" name="tags" required/> <small
+										class="help-block">标签用英文逗号分隔(如:汽车,电器,美食)</small>
+								</div>
+								<div class="form-group">
+									<label for="sort">排序</label> <input type="text"
+										class="form-control" id="seqNum" name="seqNum" placeholder="0" />
+								</div>
+								<div class="form-group">
+									<label for="status">状态</label>
+									<div class="clearfix">
+										<label class="lyear-radio radio-inline radio-primary">
+											<input type="radio" name="status" value="0"><span>锁定</span>
+										</label> <label class="lyear-radio radio-inline radio-primary">
+											<input type="radio" name="status" value="1" checked><span>有效</span>
+										</label>
+									</div>
+								</div>
+							</div>
+				            <div class="form-group col-md-12">
+				              <button type="button" class="btn btn-primary btn-save" id="article-add-button" th:name="${action}">确 定</button>
+				              <button type="button" class="btn btn-default" onclick="closeTab()">返 回</button>
+				            </div>							
+						</form>
+					</div>
+				</div>
+	</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+       /*<![CDATA[*/
+       var ctx = /*[[@{/}]]*/ '';
+       var userName = [[${#authentication.principal.username}]];
+       var action = [[${action}]];
+       var articleId = [[${articleId}]];
+       /*]]>*/
+</script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/app/admin/cms/article/articleAdd.js}"></script>
+<script data-th-src="@{/js/app/admin/cms/article/articleEdit.js}"></script>
+</html>

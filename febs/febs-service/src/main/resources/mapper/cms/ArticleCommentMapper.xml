@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.cms.dao.ArticleCommentMapper">
+	<resultMap id="articleCommentMap"
+		type="com.febs.cms.domain.ArticleComment">
+		<result column="id" jdbcType="DECIMAL" property="id" />
+		<result column="article_id" jdbcType="DECIMAL"
+			property="articleId" />
+		<result column="author" jdbcType="VARCHAR" property="author" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="wechat" jdbcType="VARCHAR" property="wechat" />
+		<result column="qq" jdbcType="VARCHAR" property="qq" />
+		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="seq_num" jdbcType="DECIMAL" property="seqNum" />
+		<result column="reply_count" jdbcType="DECIMAL"
+			property="replyCount" />
+		<result column="vote_up" jdbcType="DECIMAL" property="voteUp" />
+		<result column="vote_down" jdbcType="DECIMAL"
+			property="voteDown" />
+		<result column="comment_status" jdbcType="CHAR"
+			property="status" />
+		<result column="create_time" property="createTime"
+			jdbcType="DATE" />
+	</resultMap>
+
+</mapper>

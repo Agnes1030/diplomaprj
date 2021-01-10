@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<th:block data-th-include="admin/common/meta"></th:block>
+<!-- Vendor styles -->
+<link rel="stylesheet" data-th-href="@{/css/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/app.css}" rel="stylesheet">
+</head>
+  
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    <!--左侧导航-->
+    <th:block data-th-include="admin/common/aside"></th:block>
+    <!--End 左侧导航-->
+    
+    <!--头部信息-->
+    <th:block data-th-include="admin/common/header"></th:block>
+    <!--End 头部信息-->
+    
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+      
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="col-sm-6 col-lg-4">
+            <div class="card bg-primary">
+              <div class="card-body clearfix">
+                <div class="pull-right">
+                  <p class="h6 text-white m-t-0">今日成交订单</p>
+                  <p class="h3 text-white m-b-0" th:text="${payorderCount}">22</p>
+                </div>
+                <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-currency-cny fa-1-5x"></i></span> </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4">
+            <div class="card bg-danger">
+              <div class="card-body clearfix">
+                <div class="pull-right">
+                  <p class="h6 text-white m-t-0">今日订单</p>
+                  <p class="h3 text-white m-b-0" th:text="${orderCount}">23</p>
+                </div>
+                <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-account fa-1-5x"></i></span> </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6 col-lg-4">
+            <div class="card bg-success">
+              <div class="card-body clearfix">
+                <div class="pull-right">
+                  <p class="h6 text-white m-t-0">今日新增用户</p>
+                  <p class="h3 text-white m-b-0" th:text="${userCount}">34</p>
+                </div>
+                <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-arrow-up-bold fa-1-5x"></i></span> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          
+          <div class="col-lg-6"> 
+            <div class="card">
+              <div class="card-header">
+                <h4>每周用户</h4>
+              </div>
+              <div class="card-body">
+                <canvas class="js-chartjs-bars"></canvas>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6"> 
+            <div class="card">
+              <div class="card-header">
+                <h4>交易历史记录</h4>
+              </div>
+              <div class="card-body">
+                <canvas class="js-chartjs-lines"></canvas>
+              </div>
+            </div>
+          </div>
+           
+        </div>
+        
+        <div class="row">
+          
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>最新订单</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>订单名称</th>
+                        <th>下单时间</th>
+                        <th>用户</th>
+                        <th>状态</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="order:${orders}">
+                        <td th:text="${order.id}">1</td>
+                        <td><a th:text="${order.orderTitle}" th:href="${'/admin/order/viewOrder?orderId='+order.id}"></a></td>
+                        <td th:text="${#dates.format(order.createTime,'yyyy-MM-dd HH:mm:ss')}">10/02/2020</td>
+                        <td th:text="${order.buyerNickname}">12/05/2019</td>
+                        <th:block th:switch="${order.tradeStatus}">
+		                      <th:block th:case="1"><td><span class="label label-success">(交易中)</span></td></th:block> 
+		                      <th:block th:case="2"><td><span class="label label-success">(交易完成)</span></td></th:block> 
+		                      <th:block th:case="3"><td ><span class="label label-danger">(已取消)</span></td></th:block> 
+		                      <th:block th:case="4"><td><span class="label label-warning">(申请退款中)</span></td></th:block> 
+		                      <th:block th:case="5"><td><span class="label label-danger">(拒绝退款)</span></td></th:block>
+		                      <th:block th:case="6"><td><span class="label label-warning">(退款中)</span></td></th:block> 
+		                      <th:block th:case="7"><td><span class="label label-success">(退款完成)</span></td></th:block> 
+		                      <th:block th:case="9"><td><span class="label label-success">(交易结束)</span></td></th:block>  
+		                </th:block> 
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<!--图表插件-->
+<script type="text/javascript" data-th-src="@{/js/Chart.js}"></script>
+<script data-th-inline="javascript">
+$(document).ready(function(e) {
+    var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' ),
+        $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );
+    
+    var $dashChartBarsData = {
+		labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+		datasets: [
+			{
+				label: '注册用户',
+                borderWidth: 1,
+                borderColor: 'rgba(0,0,0,0)',
+				backgroundColor: 'rgba(51,202,185,0.5)',
+                hoverBackgroundColor: "rgba(51,202,185,0.7)",
+                hoverBorderColor: "rgba(0,0,0,0)",
+				data: [20, 15, 12, 32, 48, 35, 40]
+			}
+		]
+	};
+    var $dashChartLinesData = {
+		labels: ['2020/01', '2020/02', '2020/03', '2020/04', '2020/05', '2020/06', '2020/07', '2020/08', '2020/09', '2020/10', '2020/11', '2020/12'],
+		datasets: [
+			{
+				label: '交易资金',
+				data: [20, 25, 40, 30, 45, 40, 55, 40, 48, 40, 42, 50],
+				borderColor: '#358ed7',
+				backgroundColor: 'rgba(53, 142, 215, 0.175)',
+                borderWidth: 1,
+                fill: false,
+                lineTension: 0.5
+			}
+		]
+	};
+    
+    new Chart($dashChartBarsCnt, {
+        type: 'bar',
+        data: $dashChartBarsData
+    });
+    
+    var myLineChart = new Chart($dashChartLinesCnt, {
+        type: 'line',
+        data: $dashChartLinesData,
+    });
+});
+</script>
+<div data-th-include="admin/system/user/updatePassword"></div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<div class="modal fade" id="address-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left" id="userAddress-add-modal-title">新增地址</h4>
+            </div>
+            <div class="modal-body">
+                <form id="userAddress-add-form" class="needs-validation" novalidate>
+					<div class="form-group">
+					  <label  for="contactName">联系人</label>
+					  <input type="text" class="form-control" id="contactName" name="contactName" required/>
+					</div>	
+					<div class="form-group">
+					  <label  for="contactMobile">电话</label>
+					  <input type="text" class="form-control" id="contactMobile" name="contactMobile" required/>
+					</div>						                
+				  <div id="userAddressSelect">
+					<div class="form-group">
+					  <label  for="province">省</label>
+					  <select class="form-control" id="province" name="province"></select>
+					</div>
+					<div class="form-group">
+					  <label  for="city">市</label>
+					  <select class="form-control" id="city" name="city"></select>
+					</div>
+					<div class="form-group">
+					  <label  for="districts">区域</label>
+					  <select class="form-control" id="districts" name="districts"></select>
+					</div>
+					<div class="form-group">
+					  <label  for="addrDetails">详细地址</label>
+					  <input type="text" class="form-control" id="addrDetails" name="addrDetails" required/>
+					</div>		
+					<div class="form-group">
+					  <label  for="zipCode">邮编</label>
+					  <input type="text" class="form-control" id="zipCode" name="zipCode"/>
+					</div>								
+				  </div>  
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="userAddress-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close" id="userAddress-close-button">取消</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div> 

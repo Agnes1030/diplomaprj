@@ -1,0 +1,250 @@
+
+.profile__img {
+    padding: 5px;
+    position: relative;
+}
+.profile__img img {
+    max-width: 200px;
+    border-radius: 2px;
+}
+@media (max-width: 767px) {
+    .profile__img img {
+        margin: -55px 0 -10px;
+        width: 120px;
+        border: 5px solid #FFFFFF;
+        border-radius: 50%;
+    }
+}
+
+.profile__img__edit {
+    position: absolute;
+    font-size: 1.2rem;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    color: #FFFFFF;
+}
+.profile__img__edit:hover {
+    background-color: rgba(0, 0, 0, 0.65);
+    color: #FFFFFF;
+}
+
+.profile__info {
+    padding: 30px;
+}
+
+.photos {
+    margin: 0 0 1rem;
+}
+@media (max-width: 575px) {
+    .photos {
+        margin: 0 -1.9rem 1rem;
+    }
+}
+.photos > a {
+    padding: 0;
+    border: 2px solid #FFFFFF;
+}
+.photos > a img {
+    border-radius: 2px;
+    width: 100%;
+}
+
+@media (max-width: 575px) {
+    .contacts {
+        margin: 0 -5px;
+    }
+    .contacts > [class*="col-"] {
+        padding: 0 5px;
+    }
+}
+
+.contacts__item {
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
+    padding: 1.8rem 1.5rem 1.15rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.contacts__item:hover .contacts__img > img {
+    transform: scale(1.1);
+}
+@media (max-width: 575px) {
+    .contacts__item {
+        margin-bottom: 10px;
+    }
+}
+
+.contacts__img {
+    display: block;
+    margin-bottom: 1.1rem;
+}
+.contacts__img > img {
+    max-width: 120px;
+    max-height: 120px;
+    width: 100%;
+    border-radius: 50%;
+    transition: transform 300ms;
+}
+
+.contacts__info strong,
+.contacts__info small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+.contacts__info strong {
+    font-weight: 500;
+}
+.contacts__info small {
+    font-size: 0.9rem;
+    color: #9c9c9c;
+}
+
+.contacts__btn {
+    margin-top: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border: 0;
+    line-height: 100%;
+    background-color: transparent;
+    color: #707070;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 2px;
+    transition: background-color 300ms, color 300ms;
+}
+.contacts__btn:hover {
+    background-color: #f6f6f6;
+    color: #333;
+}
+
+.lyear-uploads-pic figure img{
+	height:115px;
+}
+.fileupload {
+	display:block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+.upload {
+	display:block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+.upFile{
+	position:absolute;
+	top:0;
+	left:0;
+}
+.upElement{
+	height:115px;
+}
+.form-group .upload-bg {
+    width: 210px;
+    height: 210px;
+    position: relative;
+    border: 1px solid #ccc;
+    background: url("/img/upload.jpeg") center no-repeat;
+    margin-left: 0;
+    margin-top: 0;
+}
+.form-group .upload-bg:hover {
+    border: 1px dashed #0000FF;
+    transition: border 1s;
+}
+.form-group .upload-bg p, .imgEditor {
+    position: absolute;
+    bottom: 0;
+    display: none;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    background: #210606;
+    opacity: 0.6;
+    color: #ccc;
+    cursor: pointer;
+
+}
+.form-group .upload-bg:hover {
+    border: 1px dashed #33cabb;
+    transition: border 1s;
+}
+.fm .reupload{margin-bottom:0 !important;}
+.form-group .upload-bg p, .imgEditor {
+    position: absolute;
+    bottom: 0;
+    display: none;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    background: #210606;
+    opacity: 0.6;
+    color: #ccc;
+    cursor: pointer;
+
+}
+.imgEditor {
+    opacity: 0;
+    z-index: 2;
+    left: 0;
+    height: 100% !important;
+    display: block;
+}
+
+.reupload{
+    margin-top:2px;
+    position: relative;
+    height: 24px ;
+    width: 210px ;
+    margin-left: 0;
+    line-height: 24px;
+    background: #33cabb;
+    display: none;
+}
+/*a  upload */
+.a-upload {
+    padding: 4px 10px;
+    height: 38px;
+    line-height: 30px;
+    position: relative;
+    cursor: pointer;
+    color: #8b95a5;
+    font-size:14px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    background-color: #f9fafb;
+	border-color: #ebebeb;
+	color: #4d5259
+}

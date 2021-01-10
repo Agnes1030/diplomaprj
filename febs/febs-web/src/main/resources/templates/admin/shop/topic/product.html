@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!-- jstree -->
+<link rel="stylesheet" data-th-href="@{/js/jsTree/themes/default/style.min.css}">
+<!-- jstree -->
+<link rel="stylesheet" data-th-href="@{/js/jsTree/themes/default/style.min.css}">
+<link rel="stylesheet" data-th-href="@{/js/jQuery-File-Upload/css/jquery.fileupload-ui.css}">
+<link rel="stylesheet" data-th-href="@{/js/jQuery-File-Upload/css/jquery.fileupload.css}">
+<!-- fontIconPicker core CSS -->
+<link rel="stylesheet" type="text/css" data-th-href="@{/js/fontIconPicker/css/jquery.fonticonpicker.min.css}" />
+<!-- required default theme -->
+<link rel="stylesheet" type="text/css" data-th-href="@{/js/fontIconPicker/themes/dark-grey-theme/jquery.fonticonpicker.darkgrey.min.css}" />
+<link data-th-href="@{/js/autocomplete/autocomplete.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/custom.css}" rel="stylesheet">
+</head>
+  
+<body>
+      <div class="container-fluid p-t-15">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header"><h4 th:text="${topic.name}">标题标签</h4></div>
+              <div class="card-body" th:text="${topic.descriptions}">
+              </div>
+            </div>
+          </div>          
+        </div>
+        <!-- .row -->        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-toolbar clearfix">
+                <form class="pull-right product-table-form form-inline" method="get" action="#!" role="form">
+                  <div class="form-group">
+                                         <select class="form-control" name="status">
+                                            <option value="" selected>全部</option>
+                                            <option value="1">有效</option>
+                                            <option value="0">锁定</option>
+                                        </select>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text"  aria-label="商品标题" name="title" placeholder="商品标题">
+                  </div>
+                  <div class="form-group">
+                    <button type="button" class="btn btn-default" onclick="search()">搜索</button>
+                       <div class="input-group-btn btn-group-line">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">导出<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#!" onclick="exportProductExcel()">Excel (.xlsx)</a></li>
+                            <li><a href="#!" onclick="exportProductCsv()">CSV (.csv)</a></li>
+                          </ul>
+                        </div>  
+                  </div>
+                </form>                
+              </div>
+              <div class="card-body">
+                <div id="toolbar" class="toolbar-btn-action">
+                  <a class="btn btn-primary m-r-5" href="#!" data-toggle="modal" data-target="#selProductModal" data-whatever="@mdo" sec:authorize="hasAuthority('topic:add')" ><i class="mdi mdi-plus"></i>新增</a>
+                  <a class="btn btn-danger" href="#!" onclick="deleteTopicProducts()" sec:authorize="hasAuthority('topic:delete')"><i class="mdi mdi-window-close"></i>取消关联</a>
+                </div>              
+                <div class="table-responsive">
+                  <table id="productTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<th:block data-th-include="admin/shop/topic/selectProduct"></th:block>
+<script data-th-inline="javascript">
+  var ctx = [[@{/}]];
+   // 选中自己的父菜单
+   window._pathName="/admin/topic";  
+   var topicId =[[${topic.id}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery-confirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.min.js}"></script>
+<!-- fontIconPicker JS -->
+<script type="text/javascript" data-th-src="@{/js/fontIconPicker/jquery.fonticonpicker.min.js}"></script>
+<script data-th-src="@{/js/autocomplete/autocomplete.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jsTree/jstree.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/admin/shop/topic/product.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/admin/shop/topic/selectProduct.js}"></script>
+</body>
+</html>

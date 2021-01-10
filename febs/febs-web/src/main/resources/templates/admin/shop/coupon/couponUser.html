@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<th:block data-th-include="admin/common/meta"></th:block>
+<!-- Vendor styles -->
+<link rel="stylesheet" data-th-href="@{/css/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/app.css}" rel="stylesheet">
+<!-- Bootstrap Table -->
+<link rel="stylesheet" data-th-href="@{/css/bootstrap-table/bootstrap-table.css}">
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!--日期选择插件-->
+<link rel="stylesheet" data-th-href="@{/js/bootstrap-datepicker/bootstrap-datepicker3.min.css}">
+<!-- jstree -->
+<link rel="stylesheet" data-th-href="@{/css/jsTree/style.min.css}">
+<link data-th-href="@{/css/app.css}" rel="stylesheet">
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/jquery.validate.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/additional-methods.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/messages_zh.min.js}"></script>
+<script data-th-src="@{/js/jsTree/jstree.js}"></script>
+</head>
+  
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+       <!--左侧导航-->
+    <th:block data-th-include="admin/common/aside"></th:block>
+    <!--End 左侧导航-->
+    
+    <!--头部信息-->
+    <th:block data-th-include="admin/common/header"></th:block>
+    <!--End 头部信息-->
+    
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header"><h4 th:text="${coupon.title}">标题标签</h4></div>
+              <div class="card-body">
+                 <h5 th:if="${not #strings.isEmpty(coupon.quota)}" >配置总数量:<span th:text="${coupon.quota}"></span></h5>        
+                 <h5 th:if="${not #strings.isEmpty(coupon.takeCount)}" >已领取数量:<span th:text="${coupon.takeCount}"></span></h5>
+                 <h5 th:if="${not #strings.isEmpty(coupon.usedCount)}" >已使用取数量:<span th:text="${coupon.usedCount}"></span></h5>
+              </div>
+            </div>
+          </div>          
+        </div>
+        <!-- .row -->        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-toolbar clearfix">
+                <form class="pull-right couponUser-table-form form-inline" method="get" action="#!" role="form">
+                  <div class="form-group">
+                                         <select class="form-control" name="couStatus">
+                                            <option value="" selected>全部</option>
+                                            <option value="1">未使用</option>
+                                            <option value="2">已经使用</option>
+                                            <option value="3">已过期</option>
+                                            <option value="9">不可用</option>
+                                        </select>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text"  aria-label="用户名" name="userName" placeholder="用户名">
+                  </div>
+                  <div class="form-group">
+                    <button type="button" class="btn btn-default" onclick="search()">搜索</button>
+                  </div>
+                </form>                
+                <div class="toolbar-btn-action">
+                  <a class="btn btn-primary m-r-5" href="#!" data-toggle="modal" data-target="#selUserModal" data-whatever="@mdo" sec:authorize="hasAuthority('topic:add')" ><i class="mdi mdi-plus"></i>新增</a>
+                  <a class="btn btn-danger" href="#!" onclick="deleteCouponUsers()" sec:authorize="hasAuthority('coupon:delete')"><i class="mdi mdi-window-close"></i>删除</a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table id="couponUserTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+<script data-th-inline="javascript">
+  var ctx = [[@{/}]];
+   // 选中自己的父菜单
+   window._pathName="/admin/coupon";  
+   var couponId =[[${coupon.id}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<!--时间选择插件-->
+<script data-th-src="@{/js/bootstrap-datetimepicker/moment.min.js}"></script>
+<script data-th-src="@{/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js}"></script>
+<script data-th-src="@{/js/bootstrap-datetimepicker/locale/zh-cn.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/admin/shop/coupon/couponUser.js}"></script>
+ <th:block data-th-include="admin/shop/coupon/selectUser"></th:block>
+<div data-th-include="admin/system/user/updatePassword"></div>
+</body>
+</html>

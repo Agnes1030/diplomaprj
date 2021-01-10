@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>农产品后台管理系统</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="后台管理系统">
+<meta name="description" content="后台管理系统，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!-- jstree -->
+<link  data-th-href="@{/js/jsTree/themes/default/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+</head>
+  
+<body>
+      <div class="container-fluid p-t-15">
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+		        <form id="setting-add-form" class="edit-form">
+		          <div class="form-group">
+                    <label for="site_name">网站名称</label>
+                      <input class="form-control" type="text" id="site_name" name="site_name"  placeholder="请输入站点名称" >
+                  </div>	
+		          <div class="form-group">
+                    <label for="theme">模板</label>
+                    <select  name="theme" class="form-control">
+					  <option th:each="obj:${templates}" th:value="${obj}" th:text="${obj}"></option>
+					</select>
+                  </div> 
+		          <div class="form-group">
+                    <label for="domain">域    名</label>
+                      <input class="form-control" type="text" id="domain" name="domain"  placeholder="请输入站点名称" >
+                  </div>    
+                  <div class="form-group">
+                      <label for="web_site_logo">LOGO图片</label>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <input type="text" class="form-control" id="site_logo" name="site_logo" />
+                        </div>
+                        <div class="col-md-2">
+                          <a href="javascript:;" class="a-upload" id="uploadLogo">
+				            <input type="file" name="site_logo_file" id="site_logo_file">上传图片
+					      </a>
+                        </div>
+                      </div>
+                    </div>                                                	  		                   
+		          <div class="form-group">
+                    <label for="version">版本</label>
+                      <input class="form-control" type="text" id="version" name="version"  placeholder="请输入版本" >
+                  </div> 
+ 		          <div class="form-group">
+                    <label for="site_address">地址</label>
+                      <input class="form-control" type="text" id="site_address" name="site_address"  placeholder="请输入地址" >
+                  </div>                   		 
+ 		          <div class="form-group">
+                    <label for="site_phone">电话</label>
+                      <input class="form-control" type="text" id="site_phone" name="site_phone"  placeholder="请输入电话" >
+                  </div>  
+  		          <div class="form-group">
+                    <label for="site_email">邮箱</label>
+                      <input class="form-control" type="text" id="site_email" name="site_email"  placeholder="请输入邮箱" >
+                  </div>   
+  		          <div class="form-group">
+                    <label for="site_copyright">版权信息</label>
+                      <input class="form-control" type="text" id="site_copyright" name="site_copyright"  placeholder="请输入版权信息" >
+                  </div>                                    		 		 		 
+  		          <div class="form-group">
+                    <label for="site_icp">备案信息</label>
+                      <input class="form-control" type="text" id="site_icp" name="site_icp"  placeholder="请输入备案信息" >
+                  </div> 
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-primary m-r-5 btn-save" id="setting-add-button" onclick="return false;">确 定</button>
+                      <button type="button" class="btn btn-default" onclick="closeTab()">返 回</button>
+                  </div>  			 		 	  
+		</form>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+<script data-th-inline="javascript">
+	var ctx = [[@{/}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery-confirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.iframe-transport.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-process.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-ui.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script type="text/javascript" data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script data-th-src="@{/js/app/admin/cms/setting/setting.js}"></script>
+</body>
+</html>

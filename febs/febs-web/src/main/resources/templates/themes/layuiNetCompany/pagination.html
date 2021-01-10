@@ -1,0 +1,10 @@
+	      <div class="layui-box layui-laypage layui-laypage-molv" id="layui-laypage-1">
+	          <a th:if="${not pageInfo.isFirstPage}" th:href="@{${'/category/'+navMenu.pinyinName}(pageNum=${pageInfo.pageNum-1},pageSize=${pageInfo.pageSize})}" class="layui-laypage-prev">上一页</a>
+	          <a th:if="${pageInfo.isFirstPage}" href="javascript:void(0);" class="layui-laypage-prev layui-disabled">上一页</a>
+	          <th:block th:each="pageNo : ${pageInfo.navigatepageNums}">
+		        <a  th:if="${not (pageInfo.pageNum eq pageNo)}" th:href="@{${'/category/'+navMenu.pinyinName}(pageNum=${pageNo},pageSize=${pageInfo.pageSize})}" th:text="${pageNo}"></a>
+		        <span th:if="${pageInfo.pageNum eq pageNo}" class="layui-laypage-curr"><em class="layui-laypage-em" style="background-color:#2db5a3;"></em><em th:text="${pageNo}"></em></span>
+              </th:block>
+              <a th:if="${not pageInfo.isLastPage}" th:href="@{${'/category/'+navMenu.pinyinName}(pageNum=${pageInfo.pageNum+1},pageSize=${pageInfo.pageSize})}" class="layui-laypage-next">下一页</a>
+              <a th:if="${pageInfo.isLastPage}" href="javascript:void(0);" class="layui-laypage-next layui-disabled">下一页</a>		      
+	      </div>

@@ -1,0 +1,95 @@
+<div class="modal fade" id="coupon-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left" id="coupon-add-modal-title">新增优惠券</h4>
+            </div>
+            <div class="modal-body">
+                <form id="coupon-add-form" class="needs-validation" novalidate>
+                  <div class="form-group">
+                    <label  for="title">名称:</label>
+                    <input type="text" name="title" class="form-control" required>
+                    <input type="hidden" name="id"  class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label  for="type">类型:</label>
+                    <select  name="type" class="form-control">
+                        <option value="1">满减券</option>
+                        <option value="2">叠加满减券</option>
+                        <option value="3">无门槛券</option>
+                    </select>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="productsType">限定范围:</label>
+                    <select  name="productsType" class="form-control">
+                         <option value="0">全品类</option>
+                         <option value="1">限定分类</option>
+                         <option value="2">限定商品</option>
+                    </select>
+                  </div>                    
+                  <div class="form-group">
+                    <label  for="withAmount">起用金额:</label>
+                    <input type="number" name="withAmount" class="form-control" required>
+                  </div>                                
+                  <div class="form-group">
+                    <label  for="amount">优惠金额:</label>
+                    <input type="number" name="amount" class="form-control" required>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="quota">配发数量:</label>
+                    <input type="number" name="quota" class="form-control" required>
+                  </div>   
+                  <div class="form-group">
+                    <label >开始兑换时间:</label>
+                    <input class="form-control js-datetimepicker" type="text" id="startTime" name="startTime" placeholder="请选择开始时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" />
+                  </div>
+                  <div class="form-group">
+                    <label >结束兑换时间:</label>
+                    <input class="form-control js-datetimepicker" type="text" id="endTime" name="endTime" placeholder="请选择结束时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" />
+                  </div>                   
+                  <div class="form-group">
+                    <label >使用开始时间:</label>
+                    <input class="form-control js-datetimepicker" type="text" id="validStartTime" name="validStartTime" placeholder="请选择开始时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" />
+                  </div>
+                  <div class="form-group">
+                    <label >使用结束时间:</label>
+                    <input class="form-control js-datetimepicker" type="text" id="validEndTime" name="validEndTime" placeholder="请选择结束时间" value="" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD HH:mm" />
+                  </div>                  
+                  <div class="form-group">
+                    <label  for="code">兑换码(可选):</label>
+                    <input type="text" name="code" class="form-control">
+                  </div>                                     
+                  <div class="form-group">
+                      <label  for="icon">图标</label>
+                      <div class=" row">
+                        <div class="col-md-9">
+                          <input type="text" class="form-control" id="icon" name="icon" />
+                        </div>
+                        <div class="col-md-3">
+                          <a href="javascript:;" class="a-upload" id="uploadCoupon">
+				            <input type="file" name="file" id="coupon_file">上传图片
+					      </a>
+                        </div>
+                      </div>
+                    </div>     
+                  <div class="form-group">
+                    <label  for="couStatus">状态:</label>
+                      <label class="radio-inline" for="recommend-radio1">
+                        <input type="radio" id="recommend-radio1" name="couStatus" value="1" checked>
+                        正常
+                      </label>
+                      <label class="radio-inline" for="recommend-radio2">
+                        <input type="radio" id="recommend-radio2" name="couStatus" value="0">
+                        锁定
+                      </label>
+                  </div> 
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="coupon-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">取消</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

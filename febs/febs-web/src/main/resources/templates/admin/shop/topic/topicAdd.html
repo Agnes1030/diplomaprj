@@ -1,0 +1,82 @@
+<div class="modal fade" id="topic-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left" id="topic-add-modal-title">新增专题</h4>
+            </div>
+            <div class="modal-body">
+                <form id="topic-add-form" class="needs-validation" novalidate>
+                  <div class="form-group">
+                    <label  for="name">名称:</label>
+                    <input type="text" name="name" class="form-control">
+                    <input type="hidden" name="id" >
+                  </div>
+                  <div class="form-group">
+                    <label  for="slug">slug:</label>
+                    <input type="text" name="slug" class="form-control" required>
+                  </div>                  
+                  <div class="form-group">
+                    <label  for="seoKeywords">seo关键字:</label>
+                    <input type="text" name="seoKeywords" class="form-control" required>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="seoDescriptions">seo描述:</label>
+                    <textarea class="form-control" name="seoDescriptions" rows="4" required></textarea>
+                  </div>   
+                  <div class="form-group">
+                    <label for="descriptions">专题描述:</label>
+                    <textarea class="form-control" name="descriptions" rows="4" required></textarea>
+                  </div>                                    
+                  <div class="form-group">
+                      <label  for="thumbnail">图片</label>
+                      <div class="col-md-7 row">
+                        <div class="col-md-9">
+                          <input type="text" class="form-control" id="thumbnail" name="thumbnail" />
+                        </div>
+                        <div class="col-md-3">
+                          <a href="javascript:;" class="a-upload" id="uploadTopic">
+				            <input type="file" name="file" id="topic_file">上传图片
+					      </a>
+                        </div>
+                      </div>
+                    </div>     
+                  <div class="form-group">
+                    <label  for="template">模板:</label>
+                    <input type="text" name="template" class="form-control">
+                  </div>  
+                  <div class="form-group">
+                    <label  for="template">详情模板:</label>
+                    <input type="text" name="detailTemplate" class="form-control">
+                  </div>                                                                    
+                  <div class="form-group">
+                    <label  for="status">是否推荐:</label>
+                      <label class="radio-inline" for="recommend-radio1">
+                        <input type="radio" id="recommend-radio1" name="recommend" value="1" checked>
+                        是
+                      </label>
+                      <label class="radio-inline" for="recommend-radio2">
+                        <input type="radio" id="recommend-radio2" name="recommend" value="0">
+                        否
+                      </label>
+                  </div> 
+                  <div class="form-group">
+                    <label  for="status">导航显示:</label>
+                      <label class="radio-inline" for="navShow-radio1">
+                        <input type="radio" id="navShow-radio1" name="navShow" value="1" checked>
+                        是
+                      </label>
+                      <label class="radio-inline" for="navShow-radio2">
+                        <input type="radio" id="navShow-radio2" name="navShow" value="0">
+                        否
+                      </label>
+                  </div>                   
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="topic-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">取消</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="modal fade" id="friendLink-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="friendLink-add-modal-title">新增友情链接</h3>
+            </div>
+            <div class="modal-body">
+                <form id="friendLink-add-form" class="needs-validation" novalidate>
+                  <div class="form-group">
+                    <label  for="name">名称:</label>
+                    <input type="text" name="name" class="form-control" required>
+                   <input type="hidden" name="id"  class="form-control">
+                  </div>
+                   <div class="form-group">
+                    <label  for="urlAddress">打开方式:</label>
+                    <select  class="form-control" name="target">
+	                  <option value="_self">当前窗口</option>
+	                  <option value="_blank">新打开</option>
+                    </select>
+                  </div>                                                      
+                   <div class="form-group">
+                    <label for="urlAddress">访问路径:</label>
+                    <input type="text" name="urlAddress" class="form-control">
+                  </div>    
+                  <div class="form-group control-group"><label class="col-md-2 control-label">缩略图:</label>
+                    <div class="col-md-7 ">
+	                    <div class="controls upload-bg" style="width:150px;height:150px;">
+					        <input class="upload" id="file" type="file" name="file">
+					        <img src="" style="display:none;width:100%;height:100%"  id="target" alt="[Jcrop Example]"/>
+					        <input type="hidden" value="" id="url" name="thumbnail" class="filevalue">
+					    </div>
+					    <p class="reupload" style="width:150px;">重新上传
+					        <input class="imgEditor" id="uploadNext" type="file" name="file" value=""/>
+					　　</p>
+                    </div>
+
+				  </div>                                                                                                 
+                  <div class="form-group">
+                    <label  for="status">状态:</label>
+                      <label class="radio-inline" for="status-radio1">
+                        <input type="radio" id="status-radio1" name="status" value="1" checked>
+                        可用
+                      </label>
+                      <label class="radio-inline" for="status-radio2">
+                        <input type="radio" id="status-radio2" name="status" value="0">
+                        禁用
+                      </label>
+                  </div>  
+                   <div class="form-group">
+                    <label for="seqNum">序号:</label>
+                    <input class="form-control" type="text" id="seqNum" name="seqNum"  placeholder="请输入序号" required>
+                  </div>                                                                                          
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="friendLink-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">关闭</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

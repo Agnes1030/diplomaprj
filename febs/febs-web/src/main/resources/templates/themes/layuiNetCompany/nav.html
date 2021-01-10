@@ -1,0 +1,5 @@
+<ul class="layui-nav" lay-filter="" >
+  <li class="layui-nav-item" th:each="nav : ${navs.children}" th:classappend="${nav.checked}? 'layui-this'">
+    <a th:text="${nav.text}" th:href="${nav.url}">首页</a>
+  </li>
+</ul>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<!-- Vendor styles -->
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<!-- fontIconPicker core CSS -->
+<link rel="stylesheet" type="text/css" data-th-href="@{/js/fontIconPicker/css/jquery.fonticonpicker.min.css}" />
+
+<!-- required default theme -->
+<link rel="stylesheet" type="text/css" data-th-href="@{/js/fontIconPicker/themes/dark-grey-theme/jquery.fonticonpicker.darkgrey.min.css}" />
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<!-- fontIconPicker JS -->
+<script type="text/javascript" data-th-src="@{/js/fontIconPicker/jquery.fonticonpicker.min.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.iframe-transport.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-process.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-ui.js}"></script>
+</head>
+<body>
+<div class="container-fluid p-t-15">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div id="toolbar" class="toolbar-btn-action">
+            <button id="btn_add" type="button" class="btn btn-primary m-r-5" sec:authorize="hasAuthority('friendLink:add')" data-toggle="modal" data-target="#friendLink-add" data-whatever="@mdo">
+              <span class="mdi mdi-plus" aria-hidden="true"></span>新增
+            </button>
+            <button id="btn_edit" type="button" class="btn btn-success m-r-5" onclick="updateFriendLink()" sec:authorize="hasAuthority('friendLink:update')">
+              <span class="mdi mdi-check" aria-hidden="true"></span>修改
+            </button>
+            <button id="btn_delete" type="button" class="btn btn-danger" onclick="deleteBanners()" sec:authorize="hasAuthority('friendLink:delete')">
+              <span class="mdi mdi-window-close" aria-hidden="true"></span>删除
+            </button>
+          </div>
+          <table id="friendLinkTable"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<th:block data-th-include="admin/cms/friendLink/friendLinkAdd"></th:block>
+<script data-th-inline="javascript">
+	var ctx = [[@{/}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script data-th-src="@{/js/app/admin/cms/friendLink/friendLink.js}"></script>
+<script data-th-src="@{/js/app/admin/cms/friendLink/friendLinkAdd.js}"></script>
+<script data-th-src="@{/js/app/admin/cms/friendLink/friendLinkEdit.js}"></script>
+</body>
+</html>

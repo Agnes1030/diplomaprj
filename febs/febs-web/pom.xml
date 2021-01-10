@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>febs</artifactId>
+        <groupId>com.febs</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>febs-web</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.febs</groupId>
+            <artifactId>febs-security</artifactId>
+            <version>${febs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.febs</groupId>
+            <artifactId>febs-quartz</artifactId>
+            <version>${febs.version}</version>
+        </dependency>
+        <!-- jasypt-->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.4.0</version>
+        </dependency>	
+		 <!-- https://mvnrepository.com/artifact/com.github.tobato/fastdfs-client -->
+		<dependency>
+		    <groupId>com.github.tobato</groupId>
+		    <artifactId>fastdfs-client</artifactId>
+		    <version>1.27.2</version>
+		</dependency>
+    </dependencies>
+    <build>
+        <plugins>
+	        <plugin>
+			  <groupId>org.springframework.boot</groupId>
+			  <artifactId>spring-boot-maven-plugin</artifactId>
+			  <configuration>
+			      <fork>true</fork><!-- 如果没有该配置，热部署的devtools不生效 -->
+			  </configuration>
+			</plugin>
+			<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>2.3.4.RELEASE</version>
+				    <configuration>
+				        <mainClass>com.febs.FebsApplication</mainClass>
+				    </configuration>
+				    <executions>
+				        <execution>
+				            <goals>
+				                <goal>repackage</goal>
+				            </goals>
+				        </execution>
+				    </executions>
+				</plugin>
+				<!-- 跳过单元测试 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+        </plugins>
+         <finalName>febs-${febs.version}</finalName>
+    </build>
+</project>

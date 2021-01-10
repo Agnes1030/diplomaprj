@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title th:text="${site_name}">Essence - Fashion Ecommerce Template</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/essence/img/core-img/favicon.ico}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" data-th-href="@{/essence/css/core-style.css}">
+    <link rel="stylesheet" data-th-href="@{/essence/style.css}">
+
+</head>
+
+<body>
+<!-- ##### Header Area Start ##### -->
+<header class="header_area">
+    <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+        <!-- Classy Menu -->
+        <nav class="classy-navbar" id="essenceNav">
+            <!-- Logo -->
+            <a class="nav-brand" href="index.html"><img src="/essence/img/core-img/logo.png" alt=""></a>
+            <!-- Navbar Toggler -->
+            <div class="classy-navbar-toggler">
+                <span class="navbarToggler"><span></span><span></span><span></span></span>
+            </div>
+            <!-- Menu -->
+            <div class="classy-menu">
+                <!-- close btn -->
+                <div class="classycloseIcon">
+                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                </div>
+                <!-- Nav Start -->
+                <div class="classynav">
+                    <ul>
+                        <li th:each="nav : ${navs.children}"><a th:text="${nav.text}" th:href="${nav.url}">Pages</a>
+                            <th:block th:if="${not #lists.isEmpty(nav.children)}">
+                                <ul class="dropdown">
+                                    <li th:each="nav1 : ${nav.children}"><a th:text="${nav1.text}"
+                                                                            th:href="${nav1.url}">Home</a></li>
+                                </ul>
+                            </th:block>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Nav End -->
+            </div>
+        </nav>
+
+
+        <!-- Header Meta Data -->
+        <th:block data-th-include="themes/essence/hmeta"></th:block>
+        <!-- Header Meta Data end -->
+
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Right Side Cart Area ##### -->
+<th:block data-th-include="themes/essence/cart"></th:block>
+<!-- ##### Right Side Cart End ##### -->
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb_area bg-img" style="background-image: url(/essence/img/bg-img/breadcumb.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="page-title text-center">
+                    <h2 th:text="${category.name}">dresses</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Shop Grid Area Start ##### -->
+<section class="shop_grid_area section-padding-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="shop_sidebar_area">
+
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget catagory mb-50">
+                        <!-- Widget Title -->
+                        <h6 class="widget-title mb-30">分类</h6>
+
+                        <!--  Catagories  -->
+                        <div class="catagories-menu">
+                            <ul id="menu-content2" class="menu-content collapse show">
+                                <cms:productCategoryList pid="0">
+                                    <!-- Single Item -->
+                                    <li th:each="category:${categorys}" data-toggle="collapse" data-target="#clothing">
+                                        <a href="#" th:text="${category.name}">clothing</a>
+                                        <cms:productCategoryList pid="${category.id}">
+                                            <th:block th:if="${not #lists.isEmpty(categorys)}">
+                                                <ul class="sub-menu collapse show" id="clothing">
+                                                    <li><a th:href="'/productCategory/'+${category.slug}">全部</a></li>
+                                                    <li th:each="secCategory:${categorys}"><a
+                                                            th:href="${'/search/searchProducts?categoryName='+secCategory.name}"
+                                                            th:text="${secCategory.name}">Bodysuits</a></li>
+                                                </ul>
+                                            </th:block>
+                                        </cms:productCategoryList>
+                                    </li>
+                                </cms:productCategoryList>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget price mb-50">
+                        <!-- Widget Title -->
+                        <h6 class="widget-title mb-30">过滤</h6>
+                        <!-- Widget Title 2 -->
+                        <p class="widget-title2 mb-30">价格</p>
+
+                        <div class="widget-desc">
+                            <div class="slider-range">
+                                <div data-min="49" data-max="360" data-unit="$"
+                                     class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+                                     data-value-min="49" data-value-max="360" data-label-result="Range:">
+                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                </div>
+                                <div class="range-price">Range: ¥0.00 - ¥100.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ##### Single Widget ##### -->
+                    <!--                        <div class="widget color mb-50">-->
+                    <!--                            &lt;!&ndash; Widget Title 2 &ndash;&gt;-->
+                    <!--                            <p class="widget-title2 mb-30">颜色</p>-->
+                    <!--                            <div class="widget-desc">-->
+                    <!--                                <ul class="d-flex">-->
+                    <!--                                    <li><a href="#" class="color1"></a></li>-->
+                    <!--                                    <li><a href="#" class="color2"></a></li>-->
+                    <!--                                    <li><a href="#" class="color3"></a></li>-->
+                    <!--                                    <li><a href="#" class="color4"></a></li>-->
+                    <!--                                    <li><a href="#" class="color5"></a></li>-->
+                    <!--                                    <li><a href="#" class="color6"></a></li>-->
+                    <!--                                    <li><a href="#" class="color7"></a></li>-->
+                    <!--                                    <li><a href="#" class="color8"></a></li>-->
+                    <!--                                    <li><a href="#" class="color9"></a></li>-->
+                    <!--                                    <li><a href="#" class="color10"></a></li>-->
+                    <!--                                </ul>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget brands mb-50">
+                        <!-- Widget Title 2 -->
+                        <p class="widget-title2 mb-30">种类</p>
+                        <div class="widget-desc">
+                            <ul>
+                                <li><a href="#">水果</a></li>
+                                <li><a href="#">蔬菜</a></li>
+                                <li><a href="#">水产品</a></li>
+                                <li><a href="#">粮油</a></li>
+                                <li><a href="#">谷物</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 col-lg-9">
+                <div class="shop_grid_product_area">
+                    <cms:productList categoryId="${category.id}" count="9">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-topbar d-flex align-items-center justify-content-between">
+                                    <!-- Total Products -->
+                                    <div class="total-products">
+                                        <p><span th:text="${pageInfo.total}">186</span> 款商品</p>
+                                    </div>
+                                    <!-- Sorting -->
+                                    <div class="product-sorting d-flex">
+                                        <p>排序:</p>
+                                        <form action="#" method="get">
+                                            <select name="select" id="sortByselect">
+                                                <option value="value">综合</option>
+                                                <option value="value">最新</option>
+                                                <option value="value">Price: ¥¥ - ¥</option>
+                                                <option value="value">Price: ¥ - ¥¥</option>
+                                            </select>
+                                            <input type="submit" class="d-none" value="">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <!-- Single Product -->
+                            <div class="col-12 col-sm-6 col-lg-4" th:each="product,iterStat : ${pageInfo.list}">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <img th:src="${product.thumbnail}" alt="">
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" th:src="${product.thumbnail}" alt="">
+
+                                        <!-- Favourite -->
+                                        <div class="product-favourite">
+                                            <a href="#" class="favme fa fa-heart"></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <a th:href="@{${product.linkUrl}}">
+                                            <h6 th:text="${product.title}">Knot Front Mini Dress</h6>
+                                        </a>
+                                        <p class="product-price" th:if="${product.price} eq ${product.originPrice}"
+                                           th:text="${product.price}">¥80.00</p>
+                                        <p class="product-price" th:if="${product.price} ne ${product.originPrice}">
+                                            <span class="old-price" th:text="${product.originPrice}">¥75.00</span>
+                                            <th:block th:text="${product.price}">¥55.00</th:block>
+                                        </p>
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- 浏览 -->
+                                            <div class="add-to-cart-btn">
+                                                <a th:href="@{${product.linkUrl}}" class="btn essence-btn">浏览</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Pagination -->
+                            <nav aria-label="navigation">
+                                <ul class="pagination mt-50 mb-70">
+                                    <li class="page-item"><a class="page-link" th:if="${not pageInfo.isFirstPage}"
+                                                             th:href="@{${'/productCategory/'+category.slug}(pageNum=${pageInfo.pageNum-1},pageSize=${pageInfo.pageSize})}"><i
+                                            class="fa fa-angle-left"></i></a></li>
+                                    <th:block th:each="pageNo : ${pageInfo.navigatepageNums}">
+                                        <li class="page-item" th:if="${not (pageInfo.pageNum eq pageNo)}"><a
+                                                class="page-link"
+                                                th:href="@{${'/productCategory/'+category.slug}(pageNum=${pageNo},pageSize=${pageInfo.pageSize})}"
+                                                th:text="${pageNo}">1</a></li>
+                                        <li class="page-item" th:if="${pageInfo.pageNum eq pageNo}"><a class="page-link"
+                                                                                                       href="#"
+                                                                                                       th:text="${pageNo}">2</a>
+                                        </li>
+                                    </th:block>
+                                    <li class="page-item"><a class="page-link" th:if="${not pageInfo.isLastPage}"
+                                                             th:href="@{${'/productCategory/'+category.slug}(pageNum=${pageInfo.pageNum+1},pageSize=${pageInfo.pageSize})}"><i
+                                            class="fa fa-angle-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </cms:productList>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Shop Grid Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<th:block data-th-include="themes/essence/footer"></th:block>
+<!-- ##### Footer Area End ##### -->
+
+<!-- jQuery (Necessary for All JavaScript Plugins) -->
+<script data-th-src="@{/essence/js/jquery/jquery-2.2.4.min.js}"></script>
+<script data-th-src="@{/essence/js/jquery.tmpl.min.js}"></script>
+<!-- Popper js -->
+<script data-th-src="@{/essence/js/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script data-th-src="@{/essence/js/bootstrap.min.js}"></script>
+<!-- Plugins js -->
+<script data-th-src="@{/essence/js/plugins.js}"></script>
+<!-- Classy Nav js -->
+<script data-th-src="@{/essence/js/classy-nav.min.js}"></script>
+<!-- Active js -->
+<script data-th-src="@{/essence/js/active.js}"></script>
+<script data-th-src="@{/essence/js/product.js}"></script>
+<script data-th-src="@{/essence/js/sku.js}"></script>
+<script data-th-inline="javascript">
+    var ctx = [[@{/}]];
+        // 初始化购物车
+        $Product.refreshCart();
+
+    function add() {
+        $.ajax({
+            type: 'POST',
+            url: "/shopcart/addCart",
+            data: {"code": "001", "quantity": "23"},
+            // dataType: "json",
+            success: function (response) {
+                if (response.code == "0") {
+                    window.location.reload();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (response) {
+                alert(response.message);
+                console.log(response);
+            }
+        });
+    }
+
+    $(".cart-btn").click(function () {
+        add();
+    })
+</script>
+</body>
+
+</html>

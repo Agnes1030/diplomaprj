@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>登录页面 - 后台管理系统</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="后台管理系统">
+    <meta name="description" content="后台管理系统，基于Bootstrap v4.4.1。">
+    <meta name="author" content="yinqi">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+    <style>
+        .login-form .has-feedback {
+            position: relative;
+        }
+
+        .login-form .has-feedback .form-control {
+            padding-left: 36px;
+        }
+
+        .login-form .has-feedback .mdi {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: auto;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            z-index: 4;
+            color: #dcdcdc;
+            display: block;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .login-form .has-feedback.row .mdi {
+            left: 15px;
+        }
+
+        .login-form .form-group:last-child,
+        .login-right p:last-child {
+            margin-bottom: 0px;
+        }
+
+        .login-right {
+            background: #67b26f !important;
+            background: -moz-linear-gradient(45deg, #67b26f 0, #4ca2cd 100%) !important;
+            background: -webkit-linear-gradient(45deg, #67b26f 0, #4ca2cd 100%) !important;
+            background: linear-gradient(45deg, #67b26f 0, #4ca2cd 100%) !important;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#67b26f', endColorstr='#4ca2cd', GradientType=1) !important;
+        }
+
+        .login-box {
+            max-width: 700px;
+        }
+
+        .login-right {
+            max-width: 50%;
+        }
+
+        body {
+            /*body外边距设为0；*/
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: -1;
+        }
+
+    </style>
+</head>
+
+<!--<body class="center-vh" style="background-image: url(/images/login-bg-3.jpg); background-size: cover;">-->
+<body class="center-vh">
+<canvas id="canvas"></canvas>
+<div class="bg-translucent p-2">
+    <div class="flex-box bg-white login-box">
+        <div class="login-left p-5">
+
+            <div class="text-center mb-3 d-sm-none">
+                <a href="index.html"> <img alt="light year admin" data-th-src="@{/images/logo-sidebar.png}"> </a>
+            </div>
+            <form action="#!" method="post" class="login-form">
+                <div class="form-group has-feedback">
+                    <span class="mdi mdi-account" aria-hidden="true"></span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+                </div>
+
+                <div class="form-group has-feedback">
+                    <span class="mdi mdi-lock" aria-hidden="true"></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+                </div>
+
+                <div class="form-group has-feedback row">
+                    <div class="col-7">
+                        <span class="mdi mdi-check-all form-control-feedback" aria-hidden="true"></span>
+                        <input type="text" name="imageCode" class="form-control" placeholder="验证码">
+                    </div>
+                    <div class="col-5 text-right">
+                        <img data-th-src="@{/image/code}" id="validateCodeImg" onclick="reloadCode()" class="pull-right"
+                             style="cursor: pointer;" title="点击刷新" alt="captcha">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="rememberme">
+                        <label class="custom-control-label not-user-select" for="rememberme">5天内自动登录</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-block btn-primary" type="button" onclick="formLogin()"
+                            id="form-login-button">立即登录
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="login-right p-5 d-none d-sm-block">
+            <p class="mb-3"><img data-th-src="@{/images/logo.png}" class="m-b-md m-t-xs" alt="logo"/></p>
+            <p class="text-white">后台管理系统，基于Bootstrap v4.4.1。</p>
+            <p class="text-white align-self-end">Copyright © 2020 <a href="http://lyear.itshubao.com"></a>. All right reserved</p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/iCheck/icheck.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#form-login-button").trigger("click");
+            }
+        });
+</script>
+<script>
+    class Circle {
+        //创建对象
+        //以一个圆为对象
+        //设置随机的 x，y坐标，r半径，_mx，_my移动的距离
+        //this.r是创建圆的半径，参数越大半径越大
+        //this._mx,this._my是移动的距离，参数越大移动
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.r = Math.random() * 10;
+            this._mx = Math.random();
+            this._my = Math.random();
+
+        }
+
+        //canvas 画圆和画直线
+        //画圆就是正常的用canvas画一个圆
+        //画直线是两个圆连线，为了避免直线过多，给圆圈距离设置了一个值，距离很远的圆圈，就不做连线处理
+        drawCircle(context) {
+            context.beginPath();
+            //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+            context.arc(this.x, this.y, this.r, 0, 360)
+            context.closePath();
+            context.fillStyle = 'rgba(204, 204, 204, 0.3)';
+            context.fill();
+        }
+
+        drawLine(context, _circle) {
+            let dx = this.x - _circle.x;
+            let dy = this.y - _circle.y;
+            let d = Math.sqrt(dx * dx + dy * dy)
+            if (d < 180) {
+                context.beginPath();
+                //开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
+                context.moveTo(this.x, this.y);   //起始点
+                context.lineTo(_circle.x, _circle.y);   //终点
+                context.closePath();
+                context.strokeStyle = 'rgba(204, 204, 204, 0.3)';
+                context.stroke();
+            }
+        }
+
+        // 圆圈移动
+        // 圆圈移动的距离必须在屏幕范围内
+        move(w, h) {
+            this._mx = (this.x < w && this.x > 0) ? this._mx : (-this._mx);
+            this._my = (this.y < h / 4 && this.y > 0) ? this._my : (-this._my);
+            this.x += this._mx / 2;
+            this.y += this._my / 2;
+        }
+    }
+
+    //鼠标点画圆闪烁变动
+    class currentCirle extends Circle {
+        constructor(x, y) {
+            super(x, y)
+        }
+
+        drawCircle(context) {
+            context.beginPath();
+            //注释内容为鼠标焦点的地方圆圈半径变化
+//        this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+            this.r = 8;
+            context.arc(this.x, this.y, this.r, 0, 360);
+            context.closePath();
+//      ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+            context.fillStyle = 'rgba(0, 0, 0, 0.3)'
+            context.fill();
+        }
+    }
+
+    //更新页面用requestAnimationFrame替代setTimeout
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+    let w = canvas.width = canvas.offsetWidth;
+    let h = canvas.height = canvas.offsetHeight;
+    let circles = [];
+    let current_circle = new currentCirle(0, 0)
+
+    let draw = function () {
+        context.clearRect(0, 0, w, h);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].move(w, h);
+            circles[i].drawCircle(context);
+            for (j = i + 1; j < circles.length; j++) {
+                circles[i].drawLine(context, circles[j])
+            }
+        }
+        if (current_circle.x) {
+            current_circle.drawCircle(context);
+            for (var k = 1; k < circles.length; k++) {
+                current_circle.drawLine(context, circles[k])
+            }
+        }
+        requestAnimationFrame(draw)
+    }
+
+    let init = function (num) {
+        for (var i = 0; i < num; i++) {
+            circles.push(new Circle(Math.random() * w, Math.random() * h));
+        }
+        draw();
+    }
+    window.addEventListener('load', init(60));
+    window.onmousemove = function (e) {
+        e = e || window.event;
+        current_circle.x = e.clientX;
+        current_circle.y = e.clientY;
+    }
+    window.onmouseout = function () {
+        current_circle.x = null;
+        current_circle.y = null;
+
+    };
+
+</script>
+<script data-th-src="@{/js/app/member/login.js}"></script>
+
+</body>
+</html>

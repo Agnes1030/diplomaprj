@@ -1,0 +1,109 @@
+    /* ####################################################
+    :: Template Name: Essence - Fashion Ecommerce Template
+    :: Author: Colorlib
+    :: Author URL: https://colorlib.com
+    :: Description: Essence is smart & elegant fashion e-commerce Template. It's suitable for all e-commerce business platform.
+    :: Version: 1.0.0
+    :: Created: April 27, 2018
+    :: Last Updated: May 2, 2018
+    #################################################### */
+
+    /* ---------------------------------------
+    ##### - PLACE YOUR CUSTOM CSS HERE - #####
+    --------------------------------------- */
+.attr-label{
+	padding:0 1rem;
+	line-height:2;
+}
+.bh-sku-selected{
+	color:#dc0345;
+}
+.single-product-wrapper .product-img img {
+    width: 100%;
+    height:340px;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+.welcome_area {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 400px;
+}
+.blog-wrapper .single-blog-area img {
+    width: 100%;
+    height: 285px;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+.single-blog-post-thumb{
+	padding-top:40px;
+	text-align:center;
+}
+.articleTitle{
+	margin-right:200px;
+	font-size:16px;
+}
+.single-blog-wrapper .single-blog-content-wrapper .related-blog-post .single-related-blog-post img {
+    width: 100%;
+    height: 200px;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+.single-blog-wrapper .single-blog-content-wrapper .related-blog-post .single-related-blog-post a h5 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+.cart-thumb{
+	height:200px;
+}
+.right-side-cart-area .cart-content .cart-list .single-cart-item .product-image .cart-item-desc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px 15px;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+.right-side-cart-area .cart-content .cart-list .single-cart-item .product-image .cart-item-desc h6 {
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}
+.right-side-cart-area .cart-content .cart-list .single-cart-item .product-image .cart-item-desc .price {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 0;
+    margin-top: 10px;
+    color: #ffffff;
+}
+.cart-item-desc .spec,.cart-item-desc .price{
+	color:#fff;
+	font-size:12px;
+	display:block;
+	padding:2px 0;
+}
+.productContent{
+	margin-top:15px;
+	text-align:center;
+}
+.commentBar{
+	background-color:#f7f7f7;
+	border-color:1px solid #eee;
+}
+#commentsList .comment-row{
+	padding:5px 0;
+	
+	border-bottom:1px solid #ddd;
+}
+#commentsList .comment-author{
+	border-right:1px solid #ddd;
+}

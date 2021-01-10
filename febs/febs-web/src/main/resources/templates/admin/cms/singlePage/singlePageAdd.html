@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>后台管理系统</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords"
+	content="后台管理系统">
+<meta name="description"
+	content="后台管理系统，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}"
+	rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}"
+	rel="stylesheet">
+<!--对话框-->
+<link rel="stylesheet"
+	data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!-- jstree -->
+<link data-th-href="@{/js/jsTree/themes/default/style.min.css}"
+	rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}"
+	rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/custom.css}" rel="stylesheet">
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/jquery.validate.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/additional-methods.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/messages_zh.min.js}"></script>
+<script data-th-src="@{/js/jsTree/jstree.min.js}"></script>
+<script data-th-src="@{/js/multiple-select/multiple-select.js}"></script>
+<script data-th-src="@{/js/ckeditor/ckeditor.js}"></script>
+<script data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.iframe-transport.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-process.js}"></script>
+<script data-th-src="@{/js/jQuery-File-Upload/js/jquery.fileupload-ui.js}"></script>
+<script data-th-src="@{/js/lightyear.js}"></script>
+<script data-th-src="@{/js/common.js}"></script>
+</head>
+<body>
+<div class="container-fluid p-t-15" id="singlePage-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="card">
+            <div class="card-body">
+                <form id="singlePage-add-form" class="needs-validation" novalidate>
+                  <div class="form-group ">
+                    <label for="title">标题</label>
+                    <input type="text" class="form-control" id="title" name="title" value="" placeholder="请输入标题" required/>
+                    <input type="hidden" name="id"  class="form-control">
+                  </div>     
+                  <div class="form-group ">
+                    <label for="pinyinName">slug</label>
+                    <input type="text" class="form-control" id="slug" name="slug" value="" placeholder="slug" required/>
+                  </div>    
+                  <div class="form-group ">
+                    <label for="keywords">关键字</label>
+                    <input class="form-control" type="text" id="keywords" name="keywords"  required/>
+                     <small class="help-block">标签用英文逗号分隔(例如:汽车,电器,美食)</small>
+                  </div>                     
+                  <div class="form-group ">
+                    <label for="description">描述</label>
+                    <textarea class="form-control" id="description" name="description" rows="5"  placeholder="描述" required></textarea>
+                  </div>                   
+                  <div class="form-group">
+                      <textarea class="form-control" id="singlePageEditor" name="content" required></textarea>
+                  </div> 
+                  <div class="form-group">
+                    <label for="template">模板</label>
+                    <input type="text" class="form-control" id="template" name="template" value="" placeholder="模板" required/>
+                  </div>                                                                   
+                  <div class="form-group">
+                    <label for="sort">排序</label>
+                    <input type="text" class="form-control" id="seqNum" name="seqNum" placeholder="0"/>
+                  </div> 
+                 <div class="form-group">
+                    <label for="status">状态</label>
+                    <div class="clearfix">
+                      <label class="lyear-radio radio-inline radio-primary">
+                        <input type="radio" name="status" value="1" id="status-radio1" checked><span>有效</span>
+                      </label>                    
+                      <label class="lyear-radio radio-inline radio-primary">
+                        <input type="radio" name="status" value="0" id="status-radio2"><span>锁定</span>
+                      </label>
+                    </div>
+                  </div> 
+                 <div class="form-group">
+                    <label for="navShow">导航显示</label>
+                    <div class="clearfix">
+                      <label class="lyear-radio radio-inline radio-primary">
+                        <input type="radio" name="navShow" value="1" id="navShow-radio1" checked><span>是</span>
+                      </label>
+                      <label class="lyear-radio radio-inline radio-primary">
+                        <input type="radio" name="navShow" value="0" id="navShow-radio2"><span>否</span>
+                      </label>
+                    </div>
+                  </div> 
+				 <div class="form-group">
+				     <button type="button" class="btn btn-primary btn-save" id="singlePage-add-button" th:name="${action}">确 定</button>
+				     <button type="button" class="btn btn-default" onclick="closeTab()">返 回</button>
+				 </div>	                                                   
+                </form>
+            </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+       /*<![CDATA[*/
+       var ctx = /*[[@{/}]]*/ '';
+       var userName = [[${#authentication.principal.username}]];
+       var action = [[${action}]];
+       var singlePageId = [[${singlePageId}]];
+       /*]]>*/
+</script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/app/admin/cms/singlePage/singlePageAdd.js}"></script>
+<script data-th-src="@{/js/app/admin/cms/singlePage/singlePageEdit.js}"></script>
+</html>

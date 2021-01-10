@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.cms.dao.ArticleTagMapper">
+  <select id="getArticleTags" resultType="articleTag">
+       SELECT tag.*,tmap.article_id FROM t_article_tag_mapping tmap 
+       left join t_article_tag tag on tmap.tag_id=tag.id 
+       where tmap.article_id in
+       <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+		#{id}
+      </foreach>
+  </select>    
+</mapper>

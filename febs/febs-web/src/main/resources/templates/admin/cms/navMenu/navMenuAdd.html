@@ -1,0 +1,64 @@
+<div class="modal fade" id="navMenu-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left" id="navMenu-add-modal-title">新增导航</h4>
+            </div>
+            <div class="modal-body">
+                <form id="navMenu-add-form" class="needs-validation" novalidate>
+                    <div class="form-group">
+                    <label  for="name">名称:</label>
+                    <input type="text" name="name" class="form-control" required>
+                    <input type="hidden" name="oldNavMenuName"  class="form-control">
+                    <input type="hidden" name="id"  class="form-control">
+                  </div>                
+                  <div class="form-group">
+                    <label  for="seqNum">序号:</label>
+                    <input type="text" name="seqNum" class="form-control" required>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="target">目标:</label>
+                    <select  name="target" class="form-control">
+                      <option value="_self">当前窗口</option>
+                      <option value="_blank">新打开</option>
+                    </select>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="navType">类型:</label>
+                       <select  name="navType" class="form-control">
+                         <option value="page">单页</option>
+                         <option value="category">文章</option>
+                         <option value="productCategory">商品</option>
+                         <option value="productTopic">专题</option>
+                       </select>
+                  </div>  
+                  <div class="form-group">
+                    <label  for="seqNum">访问路径:</label>
+                    <input type="text" name="navUrl" class="form-control" required>
+                  </div>                                                                                                                       
+                  <div class="form-group">
+                    <label  for="status">状态:</label>
+                      <label class="radio-inline" for="status-radio1">
+                        <input type="radio" id="status-radio1" name="status" value="1" checked>
+                        可用
+                      </label>
+                      <label class="radio-inline" for="status-radio2">
+                        <input type="radio" id="status-radio2" name="status" value="0">
+                        禁用
+                      </label>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="navMenuTree">上级导航:</label>
+                      <div id="navMenuTree"></div>
+                      <input type="hidden" name="parentId">
+                  </div>                                                                                        
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="navMenu-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">取消</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+  <title>网络公司-案例</title>
+  <meta name="description" th:attr="content=${category.description}">
+  <meta name="keywords" th:attr="content=${category.keywords}">  
+  <link rel="stylesheet" data-th-href="@{/layuiNetCompany/res/layui/css/layui.css}">
+  <link rel="stylesheet" data-th-href="@{/layuiNetCompany/res/static/css/index.css}">
+</head>
+<body>
+  <!-- nav部分 -->
+  <div class="nav">
+    <div class="layui-container">
+      <!-- 公司logo -->
+      <div class="nav-logo">
+        <a href="index.html">
+          <img th:src="${site_logo}" th:alt="${site_name}">
+        </a>
+      </div>
+      <div class="nav-list">
+        <button>
+          <span></span><span></span><span></span>
+        </button>
+        <div data-th-replace="cms/layuiNetCompany/nav"></div>
+      </div>
+    </div>
+  </div>
+  <!-- banner部分 -->
+  <div class="banner case">
+    <div class="title">
+      <p th:text="${category.name}"></p>
+      <p class="en">Successful Case</p>
+    </div>
+  </div>
+  <!-- main部分 -->
+  <div class="main-case">
+    <div class="layui-container">
+      <div class="layui-row">
+      <cms:articleList categoryId="${category.id}" pageSize="6"/>
+      <th:block th:switch = "${(iterStat.index+2) % 3 eq 0}" th:each="article,iterStat : ${pageInfo.list}">
+        <div th:case="true" class="layui-inline content even center" >
+          <div class="layui-inline case-img"><img data-th-src="@{${article.thumbnail}}"></div>
+          <p class="lable" th:text="${article.title}"></p>
+          <p th:text="${article.summary}"></p>
+        </div>
+        <div th:case="false" class="layui-inline content" >
+          <div class="layui-inline case-img"><img data-th-src="@{${article.thumbnail}}"></div>
+          <p class="lable" th:text="${article.title}"></p>
+          <p th:text="${article.summary}"></p>
+        </div>        
+      </th:block>   
+      </div>
+      <div id="casePage" data-th-include="cms/layuiNetCompany/pagination"></div>
+    </div>
+  </div>
+  <!-- footer部分 -->
+  <div class="footer" data-th-include="cms/layuiNetCompany/footer">
+  </div>
+<script data-th-src="@{/layuiNetCompany/res/layui/layui.js}"></script>
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script data-th-inline="javascript">
+var ctx = [[@{/}]];
+  layui.config({
+    base:'/layuiNetCompany/res/static/js/' 
+  }).use('firm'); 
+</script>
+</body>
+</html>

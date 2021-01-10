@@ -1,0 +1,28 @@
+    <aside class="lyear-layout-sidebar">
+      
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a href="/admin/index"><img data-th-src="@{/images/logo-sidebar.png}" title="LightYear" alt="LightYear" /></a>
+      </div>
+      <div class="lyear-layout-sidebar-scroll"> 
+        
+        <nav class="sidebar-main">
+          <ul class="nav nav-drawer" id="leftMenuTree">
+            <li class="nav-item"> <a href="/admin/index"><i class="mdi mdi-home"></i>后台首页</a> </li>
+            <cms:userMenus>
+            <li th:each="menu : ${menus}" class="nav-item" th:classappend="${menu.hasChildren}? 'nav-item-has-subnav'">
+              <a href="javascript:void(0)" ><i class="mdi" th:classappend="${menu.icon}"></i> <th:block th:text="${menu.text}">UI 元素</th:block></a>
+              <ul class="nav nav-subnav">
+                <li th:each="subMenu : ${menu.children}"> <a th:href="'/'+${subMenu.url}" th:text="${subMenu.text}">按钮</a> </li>
+              </ul>
+            </li>
+            </cms:userMenus>
+          </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+          <p class="copyright">Copyright &copy; 2020. <a target="_blank" href="http://lyear.itshubao.com"></a> All rights reserved.</p>
+        </div>
+      </div>
+      
+    </aside>

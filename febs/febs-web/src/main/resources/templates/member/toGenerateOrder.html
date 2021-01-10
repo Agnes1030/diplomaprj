@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>表格插件 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!-- jstree -->
+<link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<style>
+.address-card{
+height:377px;
+}
+.quantity{
+width:30px;
+text-align:center;
+margin:0 5px;
+}
+.numBtn{
+width:25px;
+display:inline-block;
+}
+</style>
+</head>
+<body>
+      <div class="container-fluid p-t-15">
+       <div class="row">
+          <div class="col-lg-12">
+             <div class="card">
+              <div class="card-header"><h4>商品信息</h4></div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>商品名称</th>
+                        <th>规格</th>
+                        <th>数量</th>
+                        <th>价格</th>
+                        <th>操作</th>
+                      </tr>
+                    </thead>
+                    <tbody id="productBody">
+                      <tr class="orderItem">
+                        <td>果戈理</td>
+                        <td>23</td>
+                        <td>国外名族</td>
+                        <td>125</td>
+                        <td><a href="#" class="del-product-btn">删除</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                     <div class="row">
+                        <div class="pull-right">
+                        <label>商品总价:<em id="productMoney">0</em>元</label>
+                        <label style="margin-left:20px;">快递费(满200免快递费):<em id="deliveryMoney">0</em>元</label>
+                        <label style="margin-left:20px;">总价:<em id="totalMoney">0</em>元</label>
+                        <label style="margin-left:20px;">需支付:<em id="payMoney">0</em>元</label>
+                        </div>
+                      </div> 
+              </div>
+            </div>         
+          </div>
+		<script id="cartListTemplate" type="text/x-jquery-tmpl">
+                      <tr class="orderItem">
+                        <td><input type="hidden" name="productName" value="${productName}"/><input type="hidden" name="productId" value="${productId}"/><input type="hidden" name="specificationIds" value="${specificationIds}"/>${productName}</td>
+                        <td>${specification}</td>
+                        <td><button class="sub-btn">-</button><input type="number" class="quantity" value="${quantity}"/><button class="add-btn">+</button></td>
+                        <td>${price}</td>
+                        <td><a href="#" class="del-product-btn">删除</a></td>
+                      </tr>
+	    </script>        
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+             <div class="card address-card" >
+              <div class="card-header"><h4>地址信息</h4></div>
+              <div class="card-body">
+	              <div id="toolbar" class="toolbar-btn-action">
+	                <div class="toolbar-btn-action">
+	                  <a class="btn btn-primary m-r-5" href="#!"  data-toggle="modal" data-target="#address-add" data-whatever="@mdo"><i class="mdi mdi-plus"></i>增加地址</a>
+	                </div>
+	              </div>                
+                  <div class="table-responsive">
+                  <table id="addressTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+                  </div>
+              </div>
+            </div>         
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+            <div class="card-header"><h4>支付</h4></div>
+            <div class="card-body">
+                <form action="lyear_forms_elements.html" method="post" onsubmit="return false;" class="needs-validation" novalidate>
+                    <div class="form-group">
+                      <label  for="thumbnail">优惠券:</label>
+                      <select  name="couponUserId" id="couponUserId" class="form-control">
+                       <option value="-1">无</option>
+                       <option  th:each="coupon:${coupons}" th:text="${coupon.title}" th:value="${coupon.id}">50元能用券</option>
+                      </select>
+                    </div>                                     
+                  <div class="form-group">
+                    <label for="buyerMsg">留言</label>
+                    <textarea class="form-control" id="buyerMsg" name="buyerMsg" rows="5"  placeholder="留言"></textarea>
+                  </div>
+	                <div class="form-group ">
+	                    <a class="btn btn-primary m-r-5" href="#!" id="geBtn"><i class="mdi mdi-square-inc-cash"></i>提交订单</a>
+	                </div>
+                </form>
+ 
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<script data-th-inline="javascript">
+  var ctx = [[@{/}]];
+</script>  
+
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script data-th-src="@{/js/jquery.tmpl.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery-confirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script type="text/javascript" data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-multitabs/multitabs.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery.cookie.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/member/member.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/city-select/js/distpicker.data.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/city-select/js/distpicker.min.js}"></script>
+<th:block data-th-include="member/userAddressAdd"></th:block>
+<script type="text/javascript" data-th-src="@{/js/app/member/memberOrder.js}"></script>
+<script type="text/javascript">
+// 刷新购物车
+function refreshCart(){
+  $.getJSON(ctx+"shopcart/cartList",function(res){
+	  if(res.code=='0'){
+		  var cartData = res.msg;
+		  $('#productBody').html($('#cartListTemplate').tmpl(cartData.items))
+		  $('#productMoney').text(cartData.productMoney);
+		  $('#totalMoney').text(cartData.total);
+		  $('#deliveryMoney').text(cartData.deliveryFee);
+		  $("#payMoney").text(cartData.total);
+		  refreshAmoun();
+	  }
+  }); 
+}
+refreshCart();
+// 删除购物车
+function removeCart(cartItem){
+     $.post(ctx+"shopcart/removeCart",cartItem,function(result){
+    	 refreshCart();
+     });	
+}
+// 添加购物车
+function addToCart(productId,productName,specIds){
+ var cartItem={productId:productId,productName:productName,specIds:specIds};
+ $.post(ctx+"shopcart/addCart",cartItem,function(result){
+	 if(result.code==0){
+		 refreshCart();    		 
+	 }else{
+		 alert(result.msg);
+	 }
+ });	
+}
+// 增加商品数量
+$("#productBody").delegate(".add-btn","click",function(){
+	var orderItem =$(this).closest(".orderItem");
+	var specIds=orderItem.find("input[name=specificationIds]").val();
+	var productId=orderItem.find("input[name=productId]").val();
+	var productName=orderItem.find("input[name=productName]").val();
+	var cartItem={specificationIds:specIds,quantity:1,productId:productId};
+	addToCart(productId,productName,specIds);
+})
+// 减少商品数量
+$("#productBody").delegate(".sub-btn","click",function(){
+	var orderItem =$(this).closest(".orderItem");
+	var specIds=orderItem.find("input[name=specificationIds]").val();
+	var productId=orderItem.find("input[name=productId]").val();
+	var cartItem={specificationIds:specIds,quantity:1,productId:productId};
+	removeCart(cartItem);
+})
+// 删除商品 
+$("#productBody").delegate(".del-product-btn","click",function(){
+	var orderItem =$(this).closest(".orderItem");
+	var quantity =orderItem.find(".quantity").val();
+	var specIds=orderItem.find("input[name=specificationIds]").val();
+	var productId=orderItem.find("input[name=productId]").val();
+	var cartItem={specificationIds:specIds,quantity:quantity,productId:productId};
+    $MB.confirm({
+        text: "确定删除选中的商品？",
+        confirmButtonText: "确定删除"
+    }, function () {
+    	removeCart(cartItem);
+    });
+})
+// 提交订单
+$("#geBtn").click(function(){
+	var selected = $("#addressTable").bootstrapTable('getSelections');
+	if(selected.length==0){
+		alert("请选择收件地址");
+		return false;
+	}
+	var items = $(".orderItem");
+	if(items.length==0){
+		alert("购物车商品不能为空");
+		return false;
+	}
+	var orderInfo ={};
+	orderInfo.deliveryAddrUsername = selected[0].contactName;
+	orderInfo.deliveryAddrMobile = selected[0].contactMobile;
+	orderInfo.deliveryAddrProvince = selected[0].province;
+	orderInfo.deliveryAddrCity = selected[0].city;
+	orderInfo.deliveryAddrDistrict = selected[0].districts;
+	orderInfo.deliveryAddrDetail = selected[0].addrDetails;
+	orderInfo.deliveryAddrZipcode = selected[0].zipCode;
+	orderInfo.buyerMsg = $("#buyerMsg").val();
+	if($("#couponUserId").val() != "-1"){
+		orderInfo.couponUserId=$("#couponUserId").val();
+	}
+	$.post(ctx+"member/generateOrder",orderInfo,function(result){
+		if(result.code==0){
+			window.location.href=ctx + "member/orderList";
+		}
+	});
+	})
+// 刷新最新价格
+function refreshAmoun(){
+	if($("#couponUserId").val() != "-1"){
+		var param={couponUserId:$("#couponUserId").val()}
+		 $.post(ctx+"member/getRealAmount",param,function(result){
+			 if(result.code==0){
+				var data=result.msg;
+				$("#payMoney").text(data.realAmount);
+			 }else{
+				 alert(result.msg);
+			 }
+		 });
+	}
+}
+$("#couponUserId").change(function(){
+	refreshAmoun();
+})
+</script>
+</body>
+</html>

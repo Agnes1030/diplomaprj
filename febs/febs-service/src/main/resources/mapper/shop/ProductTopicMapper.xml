@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.febs.shop.dao.ProductTopicMapper">
+   <!--productMap在selectProvider中要使用  -->
+  <resultMap id="productMap" type="com.febs.shop.domain.Product">
+    <result column="id" jdbcType="DECIMAL" property="id" />
+    <result column="category_ids" jdbcType="VARCHAR" property="categoryIds" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="slug" jdbcType="VARCHAR" property="slug" />
+    <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail" />
+    <result column="template" jdbcType="VARCHAR" property="template" />
+    <result column="meta_description" jdbcType="VARCHAR" property="description" /> 
+    <result column="meta_keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="content" jdbcType="VARCHAR" property="content" />               
+    <result column="seq_num" jdbcType="DECIMAL" property="seqNum" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="origin_price" jdbcType="DECIMAL" property="originPrice" />
+    <result column="limited_price" jdbcType="DECIMAL" property="limitedPrice" />
+    <result column="limited_time" jdbcType="TIMESTAMP" property="limitedTime" />
+    <result column="user_id" jdbcType="DECIMAL" property="userId" />
+    <result column="view_count" jdbcType="DECIMAL" property="viewCount" />
+    <result column="product_status" jdbcType="CHAR" property="status" />
+    <result column="comment_status" jdbcType="CHAR" property="commentStatus" />
+    <result column="comment_count" jdbcType="DECIMAL" property="commentCount" />
+    <result column="sales_count" jdbcType="DECIMAL" property="salesCount" />
+    <result column="real_sales_count" jdbcType="DECIMAL" property="realSalesCount" />
+    <result column="stock" jdbcType="DECIMAL" property="stock" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="options" jdbcType="VARCHAR" property="options" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+
+</mapper>

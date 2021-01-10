@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>登录页面 - 后台管理系统</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="后台管理系统">
+    <meta name="description" content="后台管理系统，基于Bootstrap v4.4.1。">
+    <meta name="author" content="yinqi">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+    <style>
+        .login-form .has-feedback {
+            position: relative;
+        }
+
+        .login-form .has-feedback .form-control {
+            padding-left: 36px;
+        }
+
+        .login-form .has-feedback .mdi {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: auto;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            z-index: 4;
+            color: #dcdcdc;
+            display: block;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .login-form .has-feedback.row .mdi {
+            left: 15px;
+        }
+
+        .login-form .form-group:last-child,
+        .login-right p:last-child {
+            margin-bottom: 0px;
+        }
+
+        .login-right {
+            background: #67b26f !important;
+            background: -moz-linear-gradient(45deg, #67b26f 0, #4ca2cd 100%) !important;
+            background: -webkit-linear-gradient(45deg, #67b26f 0, #4ca2cd 100%) !important;
+            background: linear-gradient(45deg, #67b26f 0, #4ca2cd 100%) !important;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#67b26f', endColorstr='#4ca2cd', GradientType=1) !important;
+        }
+
+        .login-box {
+            max-width: 700px;
+        }
+
+        .login-right {
+            max-width: 50%;
+        }
+
+        body {
+            /*body外边距设为0；*/
+            margin: 0;
+        }
+
+        video {
+            /*视频定位方式设为固定*/
+            position: fixed;
+            right: 0;
+            /*视频位置*/
+            bottom: 0;
+            min-width: 100%;
+            /*不会因视频尺寸造成页面需要滚动*/
+            min-height: 100%;
+            width: auto;
+            /*尺寸保持原视频大小*/
+            height: auto;
+            /*z轴定位，小于0即可*/
+            z-index: -100;
+            /*添加灰度蒙版，如果设定为100%则视频显示为黑白*/
+            -webkit-filter: grayscale(20%);
+        }
+
+    </style>
+</head>
+
+<!--<body class="center-vh" style="background-image: url(/images/login-bg-3.jpg); background-size: cover;">-->
+<body class="center-vh">
+<video id='video' autoplay loop muted>
+    <source src="/video/bg.mp4" type="video/mp4"/>
+    Your browser does not support the video tag.
+</video>
+<div class="bg-translucent p-2">
+    <div class="flex-box bg-white login-box">
+        <div class="login-left p-5">
+
+            <div class="text-center mb-3 d-sm-none">
+                <a href="index.html"> <img alt="light year admin" data-th-src="@{/images/logo-sidebar.png}"> </a>
+            </div>
+            <form action="#!" method="post" class="login-form">
+                <div class="form-group has-feedback">
+                    <span class="mdi mdi-account" aria-hidden="true"></span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+                </div>
+
+                <div class="form-group has-feedback">
+                    <span class="mdi mdi-lock" aria-hidden="true"></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+                </div>
+
+                <div class="form-group has-feedback row">
+                    <div class="col-7">
+                        <span class="mdi mdi-check-all form-control-feedback" aria-hidden="true"></span>
+                        <input type="text" name="imageCode" class="form-control" placeholder="验证码">
+                    </div>
+                    <div class="col-5 text-right">
+                        <img data-th-src="@{/image/code}" id="validateCodeImg" onclick="reloadCode()" class="pull-right"
+                             style="cursor: pointer;" title="点击刷新" alt="captcha">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="rememberme">
+                        <label class="custom-control-label not-user-select" for="rememberme">5天内自动登录</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-block btn-primary" type="button" onclick="formLogin()"
+                            id="form-login-button">立即登录
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="login-right p-5 d-none d-sm-block">
+            <p class="mb-3"><img data-th-src="@{/images/logo.png}" class="m-b-md m-t-xs" alt="logo"/></p>
+            <p class="text-white">后台管理系统，基于Bootstrap v4.4.1。</p>
+            <p class="text-white align-self-end">Copyright © 2020 <a href="http://lyear.itshubao.com"></a>. All right
+                reserved</p>
+        </div>
+    </div>
+</div>
+<script>
+    var video = document.getElementById('video');
+    video.playbackRate = 0.5;
+</script>
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/iCheck/icheck.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#form-login-button").trigger("click");
+            }
+        });
+</script>
+<script data-th-src="@{/js/app/admin/login.js}"></script>
+</body>
+</html>

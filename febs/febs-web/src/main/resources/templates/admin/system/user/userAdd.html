@@ -1,0 +1,67 @@
+<div class="modal fade" id="user-add" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="user-add-modal-title">新增用户</h3>
+            </div>
+            <div class="modal-body">
+	          <form id="user-add-form" class="needs-validation" novalidate>
+	            <div class="form-group">
+	              <label for="username">用户名</label>
+                  <input type="text" name="username" class="form-control" placeholder="请输入用户名" required >
+                  <input type="hidden" name="oldusername" class="form-control">
+                  <input type="hidden" name="userId" class="form-control">
+	            </div>
+	            <div class="form-group">
+	              <label for="password">密码</label>
+	              <input type="text" name="password" value="123456" readonly class="form-control">
+	            </div>
+	            <div class="form-group">
+                    <label  for="email">邮箱</label>
+                    <input type="email" name="email" class="form-control" required>
+	            </div>
+                <div class="form-group">
+		          <div class="custom-control custom-radio custom-control-inline">
+			        <input type="radio" id="statusRadio1" name="status" class="custom-control-input" value="1" checked>
+			        <label class="custom-control-label" for="statusRadio1">可用</label>
+			      </div>
+			      <div class="custom-control custom-radio custom-control-inline">
+			        <input type="radio" id="statusRadio2" name="status" class="custom-control-input" value="0">
+			        <label class="custom-control-label" for="statusRadio2">禁用</label>
+			      </div>                
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="ssex-radio1" name="ssex" class="custom-control-input" value="0" checked>
+                      <label  class="custom-control-label" for="ssex-radio1"> 男 </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="ssex-radio2" name="ssex" class="custom-control-input" value="1">
+                      <label class="custom-control-label" for="ssex-radio2"> 女 </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">                    
+                      <input type="radio" id="ssex-radio3" name="ssex" class="custom-control-input" value="2">
+                      <label  class="custom-control-label" for="ssex-radio3">保密 </label> 
+                    </div>
+                </div> 
+                <div class="form-group">
+                  <label  for="rolesSelect">角色</label>
+                  <select class="form-control custom-select" multiple  name="rolesSelect" id="rolesSelect" required>
+                  </select>
+                  <input name="roles" type="hidden" id="roles"/>                
+                </div> 
+                 <div class="form-group">
+                    <label for="deptTree">部门</label>
+                      <div id="deptTree"></div>
+                      <input type="hidden" name="deptId">
+                  </div>    
+	          </form>            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="user-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default" id="user-close-button" data-dismiss="modal">关闭</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+    <link data-th-href="@{/js/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet">
+    <!--对话框-->
+    <link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+    <!-- jstree -->
+    <link rel="stylesheet" data-th-href="@{/js/jsTree/themes/default/style.min.css}">
+    <!-- fontIconPicker core CSS -->
+    <link rel="stylesheet" type="text/css" data-th-href="@{/js/fontIconPicker/css/jquery.fonticonpicker.min.css}"/>
+    <!-- required default theme -->
+    <link rel="stylesheet" type="text/css"
+          data-th-href="@{/js/fontIconPicker/themes/dark-grey-theme/jquery.fonticonpicker.darkgrey.min.css}"/>
+    <link data-th-href="@{/js/autocomplete/autocomplete.css}" rel="stylesheet">
+    <link data-th-href="@{/js/bootstrap-select/bootstrap-select.css}" rel="stylesheet">
+    <link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/custom.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid p-t-15">
+    <div class="row">
+        <div id="filterTree" class="col-lg-2"></div>
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <div id="toolbar" class="toolbar-btn-action">
+                        <button id="btn_add" type="button" class="btn btn-primary m-r-5 js-create-tab" data-title="新增文章"
+                                data-url="/admin/product/add" sec:authorize="hasAuthority('product:add')">
+                            <span class="mdi mdi-plus" aria-hidden="true"></span>新增
+                        </button>
+                        <button id="btn_edit" type="button" class="btn btn-success m-r-5" onclick="toEdit()"
+                                sec:authorize="hasAuthority('product:update')">
+                            <span class="mdi mdi-check" aria-hidden="true"></span>修改
+                        </button>
+                        <button id="btn_disable" type="button" class="btn btn-warning m-r-5">
+                            <span class="mdi mdi-block-helper" aria-hidden="true"></span>禁用
+                        </button>
+                        <button id="btn_delete" type="button" class="btn btn-danger" onclick="deleteProducts()"
+                                sec:authorize="hasAuthority('product:delete')">
+                            <span class="mdi mdi-window-close" aria-hidden="true"></span>删除
+                        </button>
+                        <button id="reindexBtn" type="button" class="btn btn-success m-r-5" onclick="rIndexProducts()"
+                                sec:authorize="hasAuthority('product:delete')" data-loading-text="处理中..."
+                                autocomplete="off">
+                            <span class="mdi mdi-check" aria-hidden="true"></span>重新索引
+                        </button>
+                    </div>
+                    <table id="productTable" data-mobile-responsive="true"
+                           class="mb-bootstrap-table text-nowrap"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var ctx = /*[[@{/}]]*/ '';
+    var userName = [[${#authentication.principal.username}]];
+    /*]]>*/
+</script>
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jquery-confirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
+<script type="text/javascript"
+        data-th-src="@{/js/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.min.js}"></script>
+<!-- fontIconPicker JS -->
+<script type="text/javascript" data-th-src="@{/js/fontIconPicker/jquery.fonticonpicker.min.js}"></script>
+<script data-th-src="@{/js/autocomplete/autocomplete.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script type="text/javascript" data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/jsTree/jstree.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/app/admin/shop/product/product.js}"></script>
+</body>
+</html>

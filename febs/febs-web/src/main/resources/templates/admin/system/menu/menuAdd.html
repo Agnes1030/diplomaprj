@@ -1,0 +1,55 @@
+<div class="modal fade" id="menu-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="menu-add-modal-title">新增菜单/按钮</h3>
+            </div>
+            <div class="modal-body">
+                <form id="menu-add-form" class="needs-validation" novalidate>
+                            <div class="form-group">
+					            <label  for="menuName">菜单名称</label>
+                                <input type="text" name="menuName" class="form-control" required>
+                                <input type="hidden" name="oldMenuName">
+                                <input type="hidden" name="menuId">
+                            </div>
+			                <div class="form-group">
+					          <div class="custom-control custom-radio custom-control-inline">
+						        <input type="radio" id="typeRadio1" name="type" class="custom-control-input" value="0" checked>
+						        <label class="custom-control-label" for="typeRadio1">菜单</label>
+						      </div>
+						      <div class="custom-control custom-radio custom-control-inline">
+						        <input type="radio" id="typeRadio2" name="type" class="custom-control-input" value="1">
+						        <label class="custom-control-label" for="typeRadio2">按钮</label>
+						      </div>                
+			                </div>                            
+                            <div class="form-group menu-url-list-row">
+					            <label for="url">菜单URL</label>
+                                <div id="menu-url-list" >
+                                  <input id="menu-url" type="hidden" name="url" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group menu-perms-list-row">
+					            <label for="perms">权限描述:</label>
+                                <div id="menu-perms-list">
+                                  <input id="menu-perms" type="hidden" name="perms">
+                                </div>
+                            </div>
+                            <div class="form-group menu-icon-list-row" id="menuIcon">
+					             <label for="iconSelect">菜单图标</label>
+                                 <input type="text" name="icon" id="iconSelect">
+                            </div>                           
+                            <div class="form-group">
+					            <label  for="menuTree">上级菜单</label>
+                                <div id="menuTree"></div>
+                                <input type="hidden" name="parentId">
+                            </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="menu-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">关闭</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

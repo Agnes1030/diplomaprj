@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<th:block data-th-include="admin/common/meta"></th:block>
+<!-- Vendor styles -->
+<link rel="stylesheet" data-th-href="@{/css/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+<link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/style.min.css}" rel="stylesheet">
+<link data-th-href="@{/css/app.css}" rel="stylesheet">
+<!-- Bootstrap Table -->
+<link rel="stylesheet" data-th-href="@{/css/bootstrap-table/bootstrap-table.css}">
+<!--对话框-->
+<link rel="stylesheet" data-th-href="@{/js/jconfirm/jquery-confirm.min.css}">
+<!-- jstree -->
+<link rel="stylesheet" data-th-href="@{/css/jsTree/style.min.css}">
+<script type="text/javascript" data-th-src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/jquery.validate.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/additional-methods.min.js}"></script>
+<script data-th-src="@{/js/jquery-validate/messages_zh.min.js}"></script>
+</head>
+  
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+       <!--左侧导航-->
+    <th:block data-th-include="admin/common/aside"></th:block>
+    <!--End 左侧导航-->
+    
+    <!--头部信息-->
+    <th:block data-th-include="admin/common/header"></th:block>
+    <!--End 头部信息-->
+    <div data-th-include="admin/job/job/jobAdd"></div>
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+      
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-toolbar clearfix">
+                <form class="pull-right job-table-form form-inline" method="get" action="#!" role="form">
+                  <div class="form-group">
+                                         <select class="form-control" name="status">
+                                            <option value="" selected>状态</option>
+                                            <option value="0">正常</option>
+                                            <option value="1">暂停</option>
+                                        </select>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="beanName" class="form-control" placeholder="Bean名称">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text"  aria-label="定时任务描述" name="methodName" placeholder="方法名称">
+                  </div>
+                  <div class="form-group">
+                    <button type="button" class="btn btn-default" onclick="search()">搜索</button>
+                       <div class="input-group-btn btn-group-line">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">导出<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#!" onclick="exportLogExcel()">Excel (.xlsx)</a></li>
+                            <li><a href="#!" onclick="exportLogCsv()">CSV (.csv)</a></li>
+                          </ul>
+                        </div>  
+                  </div>
+                </form>
+
+                <div class="toolbar-btn-action">
+                   <a href="#!" class="btn btn-primary m-r-5" data-toggle="modal" data-target="#job-add" sec:authorize="hasAuthority('job:add')">新增</a>
+                   <a href="#!" class="btn btn-success m-r-5" onclick="updateJob()" sec:authorize="hasAuthority('job:update')">修改</a>
+                   <a href="#!" class="btn btn-danger" onclick="deleteJob()" sec:authorize="hasAuthority('job:delete')">删除</a>
+                   <a href="#!" class="btn btn-primary m-r-5" onclick="runJob()" sec:authorize="hasAuthority('job:run')">立即执行</a>
+                   <a href="#!" class="btn btn-danger" onclick="pauseJob()" sec:authorize="hasAuthority('job:pause')">暂停</a>
+                   <a href="#!" class="btn btn-success m-r-5" onclick="resumeJob()" sec:authorize="hasAuthority('job:resume')">恢复</a>                
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                 <table id="jobTable" data-mobile-responsive="true" class="mb-bootstrap-table text-nowrap"></table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+<script data-th-inline="javascript">
+var ctx = [[@{/}]];
+</script>
+<script type="text/javascript" data-th-src="@{/js/perfect-scrollbar.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/main.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/bootstrap-table/locale/bootstrap-table-zh-CN.js}"></script>
+<!--消息提示-->
+<script data-th-src="@{/js/bootstrap-notify.min.js}"></script>
+<!--对话框-->
+<script data-th-src="@{/js/jconfirm/jquery-confirm.min.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/lightyear.js}"></script>
+<script type="text/javascript" data-th-src="@{/js/common.js}"></script>
+<script data-th-src="@{/js/app/job/job/job.js}"></script>
+<script data-th-src="@{/js/autocomplete/autocomplete.js}"></script>
+</body>
+</html>

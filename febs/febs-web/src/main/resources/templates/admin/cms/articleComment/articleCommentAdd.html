@@ -1,0 +1,39 @@
+<div class="modal fade" id="articleComment-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="articleComment-add-modal-title">新增评论</h3>
+            </div>
+            <div class="modal-body">
+                <form id="articleComment-add-form" class="needs-validation" novalidate>
+                  <div class="form-group">
+                    <label  for="seqNum">序号:</label>
+                    <input type="text" name="seqNum" class="form-control">
+                  </div>                  
+                  <div class="form-group">
+                    <label  for="content">内容:</label>
+                       <input type="hidden" name="id"  class="form-control">
+                       <input type="hidden" name="parentId">
+                       <textarea class="form-control" name="content" rows="4"></textarea>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="status">状态:</label>
+                      <label class="radio-inline" for="status-radio1">
+                        <input type="radio" id="status-radio1" name="status" value="1" checked>
+                        可用
+                      </label>
+                      <label class="radio-inline" for="status-radio2">
+                        <input type="radio" id="status-radio2" name="status" value="0">
+                        禁用
+                      </label>
+                  </div>                                                                                                         
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="articleComment-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">关闭</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>

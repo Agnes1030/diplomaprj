@@ -1,0 +1,95 @@
+<div class="modal fade" id="productCategory-add" data-keyboard="false" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left" id="productCategory-add-modal-title">新增分类</h3>
+            </div>
+            <div class="modal-body">
+                <form id="productCategory-add-form" class="needs-validation" novalidate>
+                    <div class="form-group">
+                    <label for="name">分类名称:</label>
+                    <input type="text" name="name" class="form-control">
+                    <input type="hidden" name="oldProductCategoryName"  class="form-control">
+                     <input type="hidden" name="id"  class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label  for="seqNum">slug:</label>
+                    <input type="text" name="slug" class="form-control">
+                  </div>                   
+                  <div class="form-group">
+                    <label for="seqNum">序号:</label>
+                    <input type="text" name="seqNum" class="form-control">
+                  </div>  
+                  <div class="form-group">
+                      <label  for="thumbnail">缩略图</label>
+                      <div class="col-md-7 row">
+                        <div class="col-md-9">
+                          <input type="text" class="form-control" id="thumbnail" name="thumbnail" />
+                        </div>
+                        <div class="col-md-3">
+                          <a href="javascript:;" class="a-upload" id="uploadProCategory">
+				            <input type="file" name="file" id="product_file">上传图片
+					      </a>
+                        </div>
+                      </div>
+                    </div> 
+                  <div class="form-group">
+                    <label  for="template">模板:</label>
+                    <input type="text" name="template" class="form-control">
+                  </div>                          
+                  <div class="form-group">
+                    <label for="keywords">关键字:</label>
+                    <input type="text" name="keywords" class="form-control">
+                  </div>    
+                  <div class="form-group">
+                    <label  for="description">描述:</label>
+                    <textarea class="form-control" name="description" rows="4"></textarea>
+                  </div>   
+                  <div class="form-group">
+                    <label  for="status">状态:</label>
+                      <label class="radio-inline" for="status-radio1">
+                        <input type="radio" id="status-radio1" name="status" value="1" checked>
+                        可用
+                      </label>
+                      <label class="radio-inline" for="status-radio2">
+                        <input type="radio" id="status-radio2" name="status" value="0">
+                        禁用
+                      </label>
+                  </div>     
+                  <div class="form-group">
+                    <label  for="recommend">推荐:</label>
+                      <label class="radio-inline" for="recommend-radio1">
+                        <input type="radio" id="recommend-radio1" name="recommend" value="1" checked>
+                        是
+                      </label>
+                      <label class="radio-inline" for="recommend-radio2">
+                        <input type="radio" id="recommend-radio2" name="recommend" value="0">
+                        否
+                      </label>
+                  </div>                                                                                                                       
+                  <div class="form-group">
+                    <label for="navShow">导航显示:</label>
+                      <label class="radio-inline" for="navShow-radio1">
+                        <input type="radio" id="navShow-radio1" name="navShow" value="1" checked>
+                        是
+                      </label>
+                      <label class="radio-inline" for="navShow-radio2">
+                        <input type="radio" id="navShow-radio2" name="navShow" value="0">
+                        否
+                      </label>
+                  </div> 
+                  <div class="form-group">
+					 <label  for="productCategoryTree">上级分类:</label>
+                     <div id="productCategoryTree"></div>
+                     <input type="hidden" name="parentId">
+                  </div>                                                                                           
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save" id="productCategory-add-button" name="save">保存</button>
+                <button type="button" class="btn btn-default btn-close">关闭</button>
+                <button class="btn-hide d-none"></button>
+            </div>
+        </div>
+    </div>
+</div>
